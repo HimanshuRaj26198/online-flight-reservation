@@ -10,6 +10,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+//comment 2
 const firebaseConfig = {
     apiKey: "AIzaSyCfKQM7csGyUXUQvoQmYbIivG_CStl8FTo",
     authDomain: "online-ticket-reservatio-1c3a2.firebaseapp.com",
