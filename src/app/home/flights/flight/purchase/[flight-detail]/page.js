@@ -18,102 +18,6 @@ import { fireStore, useAuth } from '../../../../../_components/firebase/config';
 
 const PurchasePage = () => {
 
-    const htmlContent = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Booking Confirmation Receipt</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 20px;
-                color: #333;
-            }
-            .header {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-            .header h1 {
-                margin: 0;
-                font-size: 36px;
-                color: #2c3e50;
-            }
-            .header p {
-                margin: 5px 0;
-                font-size: 18px;
-                color: #7f8c8d;
-            }
-            .section {
-                margin-bottom: 20px;
-            }
-            .section h2 {
-                font-size: 22px;
-                color: #2980b9;
-            }
-            .details {
-                margin: 10px 0;
-            }
-            .details p {
-                font-size: 16px;
-                margin: 5px 0;
-            }
-            .footer {
-                text-align: center;
-                margin-top: 30px;
-                font-size: 14px;
-                color: #7f8c8d;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="header">
-            <h1>Booking Confirmation</h1>
-            <p>Your flight booking has been successfully confirmed.</p>
-        </div>
-
-        <div class="section">
-            <h2>Traveler Information</h2>
-            <div class="details">
-                <p><strong>Name:</strong> John Doe</p>
-                <p><strong>Email:</strong> johndoe@example.com</p>
-                <p><strong>Date of Birth:</strong> 12/25/1985</p>
-                <p><strong>Gender:</strong> Male</p>
-                <p><strong>Phone Number:</strong> +1 (555) 123-4567</p>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Flight Information</h2>
-            <div class="details">
-                <p><strong>Flight Number:</strong> ABC1234</p>
-                <p><strong>Departure Date:</strong> 2024-12-20</p>
-                <p><strong>Departure Time:</strong> 10:00 AM</p>
-                <p><strong>Departure Airport:</strong> John F. Kennedy International Airport (JFK)</p>
-                <p><strong>Arrival Airport:</strong> Los Angeles International Airport (LAX)</p>
-                <p><strong>Arrival Time:</strong> 1:00 PM</p>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Billing Information</h2>
-            <div class="details">
-                <p><strong>Billing Address:</strong> 123 Main Street, New York, NY 10001</p>
-                <p><strong>Country:</strong> United States</p>
-                <p><strong>Payment Method:</strong> Credit Card (Visa ending in 1234)</p>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>Thank you for choosing our airline! If you have any questions, feel free to contact our support team.</p>
-            <p>www.example-airline.com | +1-800-555-1234 | support@example-airline.com</p>
-        </div>
-    </body>
-    </html>
-`;
-
-
 
     // const firestore = getFirestore(app)
 
@@ -671,7 +575,7 @@ const PurchasePage = () => {
             setShowSignIn(true);
         } else {
             await handleSMSSubmit(newTraveler, selectedFlight);
-            await handleSubmit(newTraveler, htmlContent);
+            await handleSubmit(newTraveler);
 
             try {
                 // Send the travelers' details to the backend API for flight reservation
@@ -720,43 +624,113 @@ const PurchasePage = () => {
     };
 
     // Function to send email with the traveler details
-    const handleSubmit = async (travelerData, htmlContent) => {
-
+    const handleSubmit = async (travelerData) => {
         try {
             const emailContent = `
-        Hello ${travelerData.travelers[0].firstName} ${travelerData.travelers[0].lastName},
+            Hello ${travelerData.travelers[0].firstName} ${travelerData.travelers[0].lastName},
     
-   Thank you for choosing to book your flight with us. We are pleased to confirm your reservation. Below are the details related to your booking:
+            Thank you for choosing to book your flight with us. Below are your booking details:
     
-    Traveler Info:
-    Name: ${travelerData.travelers[0].firstName} ${travelerData.travelers[0].lastName}
-    Email: ${emailRef.current.value || 'Not Provided'}
-    Date of Birth: ${travelerData.travelers[0].dobDate || 'Not Provided'}/${travelerData.travelers[0].dobMonth || 'Not Provided'}/${travelerData.travelers[0].dobYear || 'Not Provided'}
-    Gender: ${travelerData.travelers[0].gender === '1' ? 'Male' : 'Female'} 
-    Phone Code: ${travelerData.contactDetails.Mobile || 'Not Provided'}
+            Traveler Info:
+            Name: ${travelerData.travelers[0].firstName} ${travelerData.travelers[0].lastName}
+            Email: ${emailRef.current.value || 'Not Provided'}
+            Gender: ${travelerData.travelers[0].gender === '1' ? 'Male' : 'Female'} 
     
-    Billing Info:
-    Address: ${travelerData.billingInfo.address || 'Not Provided'}
-    Country: ${travelerData.billingInfo.country || 'Not Provided'}
-    State: ${travelerData.billingInfo.state || 'Not Provided'}
-    City: ${travelerData.billingInfo.city || 'Not Provided'}
-    Postal Code: ${travelerData.billingInfo.postalCode || 'Not Provided'}
+            Billing Info:
+            Address: ${travelerData.billingInfo.address || 'Not Provided'}
+            Country: ${travelerData.billingInfo.country || 'Not Provided'}
+            Postal Code: ${travelerData.billingInfo.postalCode || 'Not Provided'}
     
-    Card Info (for confirmation):
-    Card Holder: ${travelerData.cardDetails.cardHolderName || 'Not Provided'}
-    Card Number: ${travelerData.cardDetails.cardNo ? '**** **** **** ' + travelerData.cardDetails.cardNo.slice(-4) : 'Not Provided'}
-    Card Type: ${travelerData.cardDetails.cardType || 'Not Provided'}
-    Expiry Date: ${travelerData.cardDetails.expiry.month || 'MM'}/${travelerData.cardDetails.expiry.year || 'YY'} (CVV: ${travelerData.cardDetails.expiry.cvv || 'Not Provided'})
+            Best regards,
+            OnlineFlightReservation
+            `;
 
-    Please review the information above for accuracy. If you notice any discrepancies or need to make adjustments, do not hesitate to reach out to us. We are here to assist you in ensuring a smooth journey.
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #2c3e50;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 22px;
+            color: #2980b9;
+        }
+        .details {
+            margin: 10px 0;
+        }
+        .details p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Booking Confirmation</h1>
+        <p>Your flight booking has been successfully confirmed.</p>
+    </div>
 
-    Best regards,  
-    OnlineFlightReservation
-    www.onlineflightreservation.com  
-    +1-866-307-8603 
-    contact@onlineflightreservation.com  
-    `;
+    <div class="section">
+        <h2>Traveler Information</h2>
+        <div class="details">
+            <p><strong>Name:</strong> ${travelerData.travelers[0].firstName} ${travelerData.travelers[0].lastName}</p>
+            <p><strong>Email:</strong> ${emailRef.current.value || 'Not Provided'}</p>
+            <p><strong>Date of Birth:</strong> ${travelerData.travelers[0].dob || 'Not Provided'}</p>
+            <p><strong>Gender:</strong> ${travelerData.travelers[0].gender === '1' ? 'Male' : 'Female'}</p>
+            <p><strong>Phone Number:</strong> ${travelerData.travelers[0].phone || 'Not Provided'}</p>
+        </div>
+    </div>
 
+    <div class="section">
+        <h2>Billing Information</h2>
+        <div class="details">
+            <p><strong>Billing Address:</strong> ${travelerData.billingInfo.address || 'Not Provided'}</p>
+            <p><strong>Country:</strong> ${travelerData.billingInfo.country || 'Not Provided'}</p>
+            <p><strong>Postal Code:</strong> ${travelerData.billingInfo.postalCode || 'Not Provided'}</p>
+            <p><strong>Payment Method:</strong> ${travelerData.billingInfo.paymentMethod || 'Not Provided'}</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Thank you for choosing our airline! If you have any questions, feel free to contact our support team.</p>
+        <p>www.example-airline.com | +1-800-555-1234 | support@example-airline.com</p>
+    </div>
+</body>
+</html>
+`;
+
+
+            // Step 1: Generate PDF
             const response = await fetch('/api/generate-pdf', {
                 method: 'POST',
                 headers: {
@@ -769,10 +743,10 @@ const PurchasePage = () => {
                 throw new Error('Failed to generate PDF');
             }
 
-            const pdfBuffer = await response.arrayBuffer(); // Get the PDF buffer from response
+            const { filePath } = await response.json(); // Get the saved file path
 
-            // Sending the email
-            const res = await fetch('/api/sendEmail', {
+            // Step 2: Send Email
+            const emailResponse = await fetch('/api/sendEmail', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -781,28 +755,22 @@ const PurchasePage = () => {
                     to: emailRef.current.value,
                     subject: 'Booking Confirmation and Traveler Details',
                     text: emailContent,
-                    attachments: [
-                        {
-                            filename: 'booking-receipt.pdf',
-                            content: pdfBuffer,
-                            encoding: 'base64',
-                        },
-                    ],
+                    filePath, // Pass the saved PDF file path
                 }),
             });
 
-            const data = await res.json();
-            if (res.ok) {
+            if (emailResponse.ok) {
                 toast.success('Booking email sent successfully!');
             } else {
-                toast.error(data.error || 'Something went wrong!');
+                const { error } = await emailResponse.json();
+                toast.error(error || 'Failed to send email');
             }
         } catch (error) {
-            // Handle errors in case of failure
-            console.error('Error sending email:', error);
+            console.error('Error:', error);
             toast.error(error.message || 'An unexpected error occurred!');
         }
     };
+
 
     // Function for send sms to customer mobile number
     const handleSMSSubmit = async (travelerData, selectedFlight) => {
