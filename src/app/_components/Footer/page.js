@@ -124,7 +124,7 @@ const Footer = () => {
                                                             onlineflightreservation.com with the latest offers and promotions. I have
                                                             read and agree to the <a target="_blank"
                                                                 href="/assets/terms-conditions.html">Terms and Conditions</a> and
-                                                            <a href="/assets/privacy-policy.html" target="_blank">privacy policy
+                                                            <a href="/privacy-policy" target="_blank">privacy policy
                                                             </a>.
                                                         </div>
                                                     </div>
