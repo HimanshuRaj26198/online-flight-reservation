@@ -123,8 +123,8 @@ const Footer = () => {
                                                         <div className="terms"> I would like to receive SMS and email from
                                                             onlineflightreservation.com with the latest offers and promotions. I have
                                                             read and agree to the <a target="_blank"
-                                                                href="/terms-conditions">Terms and Conditions</a> and
-                                                            <a href="/privacy-policy" target="_blank">privacy policy
+                                                                href="/terms-conditions">Terms and Conditions</a> and 
+                                                         <a href="/privacy-policy" target="_blank">privacy policy
                                                             </a>.
                                                         </div>
                                                     </div>
