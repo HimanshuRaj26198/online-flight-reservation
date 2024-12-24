@@ -2,6 +2,8 @@ import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 
+// added all changes
+
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         const { htmlContent } = req.body;
