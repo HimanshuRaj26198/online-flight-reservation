@@ -16,7 +16,7 @@ export default async function handler(req, res) {
             // Launch Puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'], // Required for production
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
             });
 
             const page = await browser.newPage();
@@ -30,30 +30,27 @@ export default async function handler(req, res) {
 
             await browser.close();
 
-            // Define the file path for saving the PDF
             const baseDir = process.env.NODE_ENV === 'production'
-                ? '/tmp/generated' // Temporary directory for production
-                : path.resolve('public', 'generated'); // Local directory for development
+                ? '/tmp/generated'
+                : path.resolve('public', 'generated');
 
-            const fileName = `receipt_${Date.now()}.pdf`; // Correct string interpolation
+            const fileName = `receipt_${Date.now()}.pdf`;
             const localPath = path.join(baseDir, fileName);
 
-            // Ensure the directory exists
             fs.mkdirSync(baseDir, { recursive: true });
 
-            // Save the PDF
             fs.writeFileSync(localPath, pdfBuffer);
 
             // Publicly accessible path or local file path
             const publicUrl = process.env.NODE_ENV === 'production'
-                ? `/generated/${fileName}` // Correct string interpolation
+                ? `/generated/${fileName}`
                 : localPath;
 
             console.log('PDF Generated:', publicUrl);
             res.status(200).json({ message: 'PDF generated successfully!', filePath: publicUrl });
         } catch (error) {
             console.error('PDF Generation Error:', error);
-            res.status(500).json({ error: `Failed to generate PDF: ${error.message}` }); // Correct error message formatting
+            res.status(500).json({ error: `Failed to generate PDF: ${error.message}` });
         }
     } else {
         res.status(405).json({ error: 'Method Not Allowed' });

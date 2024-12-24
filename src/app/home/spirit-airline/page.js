@@ -1350,7 +1350,7 @@ const SpiritAirline = () => {
                                         <div className="center-block">
                                             <div className="outer">
                                                 <div className="sucesspopupmsg" style={{ width: "200px" }}>
-                                                    <img src="/assets/images/loading.gif" />
+                                                    <img src="/assets/images/loading.gif" alt="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1473,7 +1473,7 @@ const SpiritAirline = () => {
                         <div className="row">
                             <div className="col-md-3 col-sm-6 col-xs-12">
                                 <div className="customer__block affirm--block">
-                                    <img src="/assets/images/affirm-logo.png" alt />
+                                    <img src="/assets/images/affirm-logo.png" alt="" />
                                     <h3>
                                         Buy now,
                                         <br />
@@ -1638,7 +1638,7 @@ const SpiritAirline = () => {
                                     >
                                         <div className="block">
                                             <figure>
-                                                <img src="/assets/images/home/hotels/las.jpg" alt />
+                                                <img src="/assets/images/home/hotels/las.jpg" alt="" />
                                             </figure>
                                             <div className="deal__detail">
                                                 <div className="deal__title">Las Vegas</div>
@@ -1651,7 +1651,7 @@ const SpiritAirline = () => {
                                     >
                                         <div className="block">
                                             <figure>
-                                                <img src="/assets/images/home/hotels/cancun.jpg" alt />
+                                                <img src="/assets/images/home/hotels/cancun.jpg" alt="" />
                                             </figure>
                                             <div className="deal__detail">
                                                 <div className="deal__title">Cancun</div>
@@ -1664,7 +1664,7 @@ const SpiritAirline = () => {
                                     >
                                         <div className="block">
                                             <figure>
-                                                <img src="/assets/images/home/hotels/lon.jpg" alt />
+                                                <img src="/assets/images/home/hotels/lon.jpg" alt="" />
                                             </figure>
                                             <div className="deal__detail">
                                                 <div className="deal__title">London</div>
@@ -1677,7 +1677,7 @@ const SpiritAirline = () => {
                                     >
                                         <div className="block">
                                             <figure>
-                                                <img src="/assets/images/home/hotels/nyc.jpg" alt />
+                                                <img src="/assets/images/home/hotels/nyc.jpg" alt="" />
                                             </figure>
                                             <div className="deal__detail">
                                                 <div className="deal__title">New York</div>
@@ -1690,7 +1690,7 @@ const SpiritAirline = () => {
                                     >
                                         <div className="block">
                                             <figure>
-                                                <img src="/assets/images/home/hotels/toronto.jpg" alt />
+                                                <img src="/assets/images/home/hotels/toronto.jpg" alt="" />
                                             </figure>
                                             <div className="deal__detail">
                                                 <div className="deal__title">Toronto</div>
@@ -1767,7 +1767,7 @@ const SpiritAirline = () => {
                                                 <div className="tp-rating position">
                                                     <img
                                                         src="/assets/images/trustpilot/stars-5.svg"
-                                                        style={{ height: "20px" }}
+                                                        style={{ height: "20px" }} alt=""
                                                     />
                                                 </div>
                                             </div>
@@ -1811,7 +1811,7 @@ const SpiritAirline = () => {
                                                 <div className="tp-rating position">
                                                     <img
                                                         src="/assets/images/trustpilot/stars-5.svg"
-                                                        style={{ height: "20px" }}
+                                                        style={{ height: "20px" }} alt=""
                                                     />
                                                 </div>
                                             </div>
@@ -1853,7 +1853,7 @@ const SpiritAirline = () => {
                                                 <div className="tp-rating position">
                                                     <img
                                                         src="/assets/images/trustpilot/stars-5.svg"
-                                                        style={{ height: "20px" }}
+                                                        style={{ height: "20px" }} alt=""
                                                     />
                                                 </div>
                                             </div>
@@ -1923,7 +1923,7 @@ const SpiritAirline = () => {
                                                 <div className="tp-rating position">
                                                     <img
                                                         src="/assets/images/trustpilot/stars-4.svg"
-                                                        style={{ height: "20px" }}
+                                                        style={{ height: "20px" }} alt=""
                                                     />
                                                 </div>
                                             </div>
@@ -1967,7 +1967,7 @@ const SpiritAirline = () => {
                                                 <div className="tp-rating position">
                                                     <img
                                                         src="/assets/images/trustpilot/stars-5.svg"
-                                                        style={{ height: "20px" }}
+                                                        style={{ height: "20px" }} alt=""
                                                     />
                                                 </div>
                                             </div>
@@ -2013,7 +2013,7 @@ const SpiritAirline = () => {
                                                 <div className="tp-rating position">
                                                     <img
                                                         src="/assets/images/trustpilot/stars-5.svg"
-                                                        style={{ height: "20px" }}
+                                                        style={{ height: "20px" }} alt=""
                                                     />
                                                 </div>
                                             </div>
@@ -2057,7 +2057,7 @@ const SpiritAirline = () => {
                                                 <div className="tp-rating position">
                                                     <img
                                                         src="/assets/images/trustpilot/stars-4.svg"
-                                                        style={{ height: "20px" }}
+                                                        style={{ height: "20px" }} alt=""
                                                     />
                                                 </div>
                                             </div>

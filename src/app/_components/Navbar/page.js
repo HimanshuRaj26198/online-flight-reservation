@@ -1,5 +1,4 @@
 "use client"
-import Script from "next/script";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import SignInComponent from "../SignIn/page";
@@ -212,7 +211,7 @@ const Navbar = () => {
                         </button>
 
                         <a className="navbar-brand" href="/"><img src="/assets/logo.png"
-                            alt="https://onlineflightreservations.one" /></a>
+                            alt="https://www.onlineflightreservation.com/" /></a>
                     </div>
 
                     <div id="navbar" className={`navbar-collapse main_navigation ${mobMenuOpen ? 'mainMenuopen' : 'mainMenuClosed'}`}>
@@ -222,7 +221,7 @@ const Navbar = () => {
                         <div className="pull-right phone-number">
                             <div className="call_27">Call 24/7 for our best deals</div>
                             <a className="phoneNumber" id="nav_contactNo" href="tel:+1(888) 267-5955">
-                                <img src="/assets/images/uc/newcall3a02.gif?1222" className="call-icon" />
+                                <img src="/assets/images/uc/newcall3a02.gif?1222" className="call-icon" alt="" />
                                 +1(888) 267-5955
                             </a>
                         </div>
@@ -289,7 +288,7 @@ const Navbar = () => {
                                         }
                                     </li>
                                 </ul>
-                                <ul id="divwelcome" style={{ display: "none" }}>
+                                {/* <ul id="divwelcome" style={{ display: "none" }}>
                                     <li className="dropdown loginDropdown">
                                         <a href="#" className="login">
                                             <span id="displayusername_mob" className="visible-xs short_name">S</span>
@@ -316,14 +315,14 @@ const Navbar = () => {
                                         </ul>
 
                                     </li>
-                                </ul>
+                                </ul> */}
                             </div>
                         </li>
                     </ul>
                 </div>
             </nav>
 
-            <div className="submenuLsit">
+            {/* <div className="submenuLsit">
                 <div className="holder">
                     <div className="block">
                         <h4>Special Deals</h4>
@@ -413,7 +412,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
         </header>
         {loginPopupVisible && !signUpVisible && <SignInComponent hideLoginPopup={hideLoginPopup} showSignUp={showSignUp} />}
