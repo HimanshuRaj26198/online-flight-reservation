@@ -7,10 +7,16 @@ export default async function handler(req, res) {
         const { htmlContent } = req.body;
 
         try {
+            // Set the executable path conditionally for production
+            const isProduction = process.env.NODE_ENV === 'production';
+            const chromePath = '/vercel/.cache/puppeteer/chrome/linux-131.0.6778.108/chrome-linux64/chrome';
+
+
             // Launch Puppeteer browser
             const browser = await puppeteer.launch({
                 headless: true,
                 args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                ...(isProduction && { executablePath: chromePath })
             });
             const page = await browser.newPage();
             await page.setContent(htmlContent);
