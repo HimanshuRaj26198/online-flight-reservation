@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run install-puppeteer && next build",
+    "build": "npm i puppeteer && next build",
     "start": "next start"
   },
   "dependencies": {
