@@ -1,5 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import chromium from '@sparticuz/chromium';
+import { headless } from 'chrome-aws-lambda';
+
 
 
 let chrome = {};
@@ -18,10 +21,10 @@ export default async function handler(req, res) {
         try {
             let options = {};
 
-            if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+            if (process.env.AWS_LAMBDA_FUNCTION_VERSION || process.env.NODE_ENV == "production") {
                 options = {
-                    args: [...chrome.args, '--no-sandbox', '--disable-setuid-sandbox'],
-                    executablePath: await chrome.executablePath
+                    args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
+                    executablePath: await chromium.executablePath()
                 }
             } else {
                 options = {

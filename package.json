@@ -6,9 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postinstall": "npx puppeteer browsers install chrome"
+    "postinstall": "npx puppeteer browsers install chrome && npm i @sparticuz/chromium"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^131.0.1",
     "agent-base": "^7.1.1",
     "antd": "^5.21.6",
     "authorizenet": "^1.0.9",
