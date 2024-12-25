@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postinstall": "npm i puppeteer"
+    "prebuild": "npm install puppeteer"
   },
   "dependencies": {
     "agent-base": "^7.1.1",
