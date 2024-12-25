@@ -1402,7 +1402,7 @@ const DestinationPage = () => {
                                     </a>
                                 </div>
                                 <div className="column">
-                                    <a href="/assets/best_price.html" target="_blank">
+                                    <a href="/" target="_blank">
                                         <span className="icon2"></span>
                                         <h4>Price Match Promise</h4>
                                         <p>
@@ -1463,7 +1463,7 @@ const DestinationPage = () => {
                                         If you're able to find a lower flight fare on another website,
                                         make the claim within 24 hours of making the booking.{" "}
                                     </p>
-                                    <a href="/assets/best_price.html" target="_blank">
+                                    <a href="/" target="_blank">
                                         Read more
                                     </a>
                                 </div>
@@ -1666,7 +1666,7 @@ const DestinationPage = () => {
                         </div>
                         <div className="holder">
                             <div className="column">
-                                <a href="/assets/baggage-fees.html" target="_blank">
+                                <a href="/baggage-fees" target="_blank">
                                     <img src="/assets/images/home/new/baggage.jpg" alt="baggage" />
                                     <h4>Baggage</h4>
                                 </a>

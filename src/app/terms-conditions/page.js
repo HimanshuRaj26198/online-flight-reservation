@@ -1860,7 +1860,7 @@ const TermsConditions = () => {
                             checked-in bag, therefore it is strongly recommended to travel light
                             in order to reduce baggage cost. To find out about the baggage fee
                             for each airline, check out our{" "}
-                            <a href="/us/baggage-fees" className="blue" target="_blank">
+                            <a href="/baggage-fees" className="blue" target="_blank">
                                 Baggage Fees
                             </a>{" "}
                             page. In case, you are traveling with excess baggage, you will be

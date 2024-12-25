@@ -18,6 +18,21 @@ import { fireStore, useAuth } from '../../../../../_components/firebase/config';
 
 const PurchasePage = () => {
 
+
+    // const firestore = getFirestore(app)
+
+    // const writeDoc = async () => {
+    //     const res = await addDoc(collection(firestore, 'bookingDetails'), {
+    //         name: "Shubham Kumar",
+    //         city: "Hajipur"
+    //     })
+    //     console.log(res, "FireBase Data");
+
+    // }
+    // useEffect(() => {
+    //     // writeDoc();
+    // })
+
     const [selectedFlight, setSelectedFlight] = useState(null);
     const [travellerDetails, setTravellerDetails] = useState({});
     const [isAffirmPayment, setIsAffirmPayment] = useState(false);
@@ -630,424 +645,91 @@ const PurchasePage = () => {
             OnlineFlightReservation
             `;
 
-            const content = (travellerDetails, selectedFlight, travelers) => `
+            const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flight Itinerary</title>
+    <title>Booking Confirmation Receipt</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            margin: 20px;
             color: #333;
-            margin: 0;
-            padding: 0;
         }
-             /* Container for header content */
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #1b75bc;
-            color: white;
-        }
-        /* Logo styling */
-        .logo img {
-            width: 50px;
-            height: auto;
-        }
-        /* Company info */
-        .company-info {
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            margin-left: 20px;
-        }
-        .company-info p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .w560 {
-            width: 560px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .w160 {
-            width: 160px;
-        }
-        .stops img {
-            width: 20px;
-            vertical-align: middle;
-        }
-        .h20 {
-            height: 20px;
-        }
-        .w20 {
-            width: 20px;
-        }
-        .tabel-format2 th, .tabel-format2 td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        .tabel-format2 th {
-            background-color: #f0f0f0;
-            color: #666;
-            font-weight: bold;
-        }
-        .tabel-format2 td {
-            font-size: 14px;
-        }
-        .stops {
-            text-align: center;
-            font-weight: bold;
-        }
-        .stops img {
-            margin-bottom: 5px;
-        }
-        .w20, .h20 {
-            background-color: #e0e0e0;
-        }
-        /* Styling for the header */
         .header {
-            background-color: #1b75bc;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .header img {
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-        /* Flight section styles */
-        .flight-info {
-            background-color: #e1ecff;
-            padding: 15px;
-            font-size: 12px;
-            border-radius: 5px;
-        }
-        .flight-info span {
-            font-weight: 600;
-        }
-        .flight-details {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 12px;
-            color: #202020;
-        }
-        .flight-details .time {
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .flight-details .city-name {
-            font-size: 12px;
-            color: #666;
-        }
-        /* Traveler section styles */
-        .traveler-info {
-            background-color: #1b75bc;
-            color: white;
-            padding: 10px;
-            border-radius: 5px 5px 0 0;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .traveler-table th, .traveler-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        .traveler-table th {
-            background-color: #f0f0f0;
-            color: #666;
-        }
-        .traveler-table td {
-            font-size: 13px;
-            color: #333;
-        }
-        .traveler-table td span {
-            font-weight: bold;
-        }
-       /* Footer styles */
-        footer {
-            background-color: #333;
-            color: white;
             text-align: center;
-            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #2c3e50;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 22px;
+            color: #2980b9;
+        }
+        .details {
+            margin: 10px 0;
+        }
+        .details p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
             font-size: 14px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-        }
-        footer a {
-            color: #1b75bc;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
+            color: #7f8c8d;
         }
     </style>
 </head>
 <body>
-<!-- Header Section -->
-<div class="header-container">
-    <div class="logo">
-        <img src="/assets/logo.png" alt="Company Logo">
+    <div class="header">
+        <h1>Booking Confirmation</h1>
+        <p>Your flight booking has been successfully confirmed.</p>
     </div>
-    <div class="company-info">
-        <p>Online Flight Reservations</p>
-        <p>Address, City, Country</p>
-        <p>Email: contact@onlineflightreservation.com | Phone: +1-(888)-267-5955</p>
+
+    <div class="section">
+        <h2>Traveler Information</h2>
+        <div class="details">
+            <p><strong>Name:</strong> ${travelerData.travelers[0].firstName} ${travelerData.travelers[0].lastName}</p>
+            <p><strong>Email:</strong> ${emailRef.current.value || 'Not Provided'}</p>
+            <p><strong>Date of Birth:</strong> ${travelerData.travelers[0].dob || 'Not Provided'}</p>
+            <p><strong>Gender:</strong> ${travelerData.travelers[0].gender === '1' ? 'Male' : 'Female'}</p>
+            <p><strong>Phone Number:</strong> ${travelerData.travelers[0].phone || 'Not Provided'}</p>
+        </div>
     </div>
-</div>
 
-<!-- Main Content -->
+    <div class="section">
+        <h2>Billing Information</h2>
+        <div class="details">
+            <p><strong>Billing Address:</strong> ${travelerData.billingInfo.address || 'Not Provided'}</p>
+            <p><strong>Country:</strong> ${travelerData.billingInfo.country || 'Not Provided'}</p>
+            <p><strong>Postal Code:</strong> ${travelerData.billingInfo.postalCode || 'Not Provided'}</p>
+            <p><strong>Payment Method:</strong> ${travelerData.billingInfo.paymentMethod || 'Not Provided'}</p>
+        </div>
+    </div>
 
-
-<table cellpadding="0" cellspacing="0" border="0">
-    <tbody>
-        <tr>
-            <td>
-                <br>
-                <table class="w560" cellpadding="0" cellspacing="0" border="0">
-                    <tbody>
-                        <tr>
-                            <td class="header">
-                                <img src="https://cmsrepository.com/static/flights/common/eticket/plane.png" style="vertical-align: middle; margin-right: 5px;"> Departure ${getFormattedDate(selectedFlight.itineraries[0].segments[0].departure.at)}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="flight-info">
-                                <span>Leg 1</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="flight-details">
-                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                    <tbody>
-                                        <tr>
-                                            <td class="w160">
-                                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><img src="${selectedFlight.itineraries[0].segments[0].airline.logo}" width="32"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-weight: 600;">${selectedFlight.itineraries[0].segments[0].departure.airport.iata}</td>
-                                                        </tr>
-                                                        <tr><td height="5"></td></tr>
-                                                        <tr>
-                                                            <td style="font-weight: 600; font-size: 14px;">Flight  ${selectedFlight.itineraries[0].segments[0].number} | <span style="font-size: 12px; font-weight: 500;">Aircraft ${selectedFlight.itineraries[0].segments[0].aircraft.code}</span></td>
-                                                        </tr>
-                                                        <tr><td class="h20"></td></tr>
-                                                        <tr>
-                                                            <td>
-                                                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td style="color: #666;">Cabin</td>
-                                                                        </tr>
-                                                                        <tr style="font-weight: 600;">
-                                                                            <td>${travellerDetails.cabin}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td width="5"></td>
-                                            <td width="1" style="border-left: 1px dotted #ccc;"></td>
-                                            <td width="10"></td>
-                                            <td>
-                                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="width: 140px; vertical-align: top;">
-                                                                <b style="font-size: 18px;">${selectedFlight.itineraries[0].segments[0].departure.airport.iata}</b><br>
-                                                                <b style="font-size: 12px;">${selectedFlight.itineraries[0].segments[0].departure.airport.city}</b>
-                                                            </td>
-                                                            <td>&nbsp;</td>
-                                                            <td style="text-align: right; width: 140px; vertical-align: top;">
-                                                                <b style="font-size: 18px;">${selectedFlight.itineraries[0].segments[0].arrival.airport.iata}</b><br>
-                                                                <b style="font-size: 12px;">${selectedFlight.itineraries[0].segments[0].arrival.airport.city}</b>
-                                                            </td>
-                                                        </tr>
-                                                        <tr><td colspan="3" height="10"></td></tr>
-                                                        <tr>
-                                                            <td style="width: 140px; vertical-align: top;">
-                                                                <span style="color: #666;">${selectedFlight.itineraries[0].segments[0].departure.airport.name}</span>
-                                                            </td>
-                                                            <td class="stops"><img src="https://cmsrepository.com/static/flights/common/eticket/plane-stop.png"><br>Non Stop</td>
-                                                            <td style="text-align: right; width: 140px; vertical-align: top;">
-                                                                <span style="color: #666;">${selectedFlight.itineraries[0].segments[0].arrival.airport.name}</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr><td colspan="3" height="10"></td></tr>
-                                                    </tbody>
-                                                </table>
-                                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="width: 130px; vertical-align: top;">
-                                                                <b style="font-size: 14px;"> ${getTimeFromDate(selectedFlight.itineraries[0].segments[0].departure.at, false)}</b><br>
-                                                            </td>
-                                                            <td>&nbsp;</td>
-                                                            <td style="text-align: right; width: 180px; vertical-align: top;">
-                                                                <b style="font-size: 14px;">${getTimeFromDate(selectedFlight.itineraries[0].segments[0].arrival.at)}</b><br>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- Layover Information Table -->
-                <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                    <tbody>
-                        <tr>
-                            <td
-                                style="background: #ffe2cd; text-align: center; font-size: 12px; font-weight: 600; padding: 7px 10px; border-radius: 5px; color: #21356e;"
-                            >
-                                Layover in [Airport Name] [City Name]: [Layover Time]
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Spacer Table -->
-                <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                    <tbody>
-                        <tr>
-                            <td height="10" />
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        <tr><td height="10"></td></tr>
-        <table class="w560" cellpadding="0" cellspacing="0" border="0">
-            <tbody>
-                <tr>
-                    <td class="traveler-info">
-                        <img src="https://cmsrepository.com/static/flights/common/eticket/user.png" style="vertical-align: middle;"> Traveler(s) Details
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <table width="100%" class="tabel-format2" cellpadding="10" cellspacing="0" border="0">
-                            <tbody>
-                                <tr>
-                                    <th>Traveler(s) Name</th>
-                                    <th>Gender</th>
-                                    <th>DOB(DD/MM/YYYY)</th>
-                                </tr>
-                                 ${travelers.map((traveler, index) => `
-                                    <tr>
-                                        <td>${index + 1}. ${traveler.firstName} ${traveler.lastName}</td>
-                                        <td>${traveler.travelerType === '1' ? 'Female' : 'Male'}</td>
-                                        <td> ${traveler.dobDate < 10 ? `0${traveler.dobDate}` : traveler.dobDate}/
-                                                                                                    ${traveler.dobMonth < 10 ? `0${traveler.dobMonth}` : traveler.dobMonth}/
-                                                                                                    ${traveler.dobYear}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr><td height="20"></td></tr>
-                 <tr>
-                    <td>
-                        <table class="w560" cellpadding="0" cellspacing="0" border="0">
-                            <tbody>
-                                <tr>
-                                    <td style="background: #1b75bc; padding: 10px; border-radius: 5px 5px 0 0; color: #fff; font-size: 14px; font-weight: 600;">
-                                        <img src="https://cmsrepository.com/static/flights/common/eticket/price-icon.png" style="vertical-align: middle; margin-right: 5px;"> Price Details
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table class="tabel-format2" width="100%" cellpadding="10" cellspacing="0" border="0" style="border-color: #ccc; border-collapse: collapse; font-size: 14px; background: #F5F5F5; font-weight: bold; color: #1F1F1F; border-radius: 0 0 5px 5px;">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Flight Price</td>
-                                                    <td style="text-align: right;">${selectedFlight.travelerPricings[0].price.total}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="border-top: 1px dashed #ddd; color: #3AB54A; font-weight: bold;">
-                                                        <span style="color: #1F1F1F;">Flight Watcher</span>
-                                                    </td>
-                                                    <td style="border-top: 1px dashed #ddd; color: #3AB54A; text-align: right; font-weight: bold;">
-                                                        Free
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-bottom: 20px; font-size: 16px; color: #1b75bc; border-top: 2px solid #ddd;">
-                                                        Total Travel Cost
-                                                    </td>
-                                                    <td style="padding-bottom: 20px; font-size: 16px; text-align: right; color: #ff7f00; border-top: 2px solid #ddd;">
-                                                    ${selectedFlight.travelerPricings[0].price.total}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="h20"></td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 12px; line-height: 1.6em;">
-                                        The total travel cost in the amount of <b>${selectedFlight.travelerPricings[0].price.total}</b> were charged to the (Visa) ending in <b>1234</b> of <b>John Doe</b>. Your Credit/Debit card may be billed in multiple charges totaling the final price.
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="h20"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </tbody>
-</table>
-
-
-
-<!-- Footer Section -->
-<footer>
-    <p>&copy; 2024 Company Name. All Rights Reserved.</p>
-    <p>Address | <a href="mailto:info@company.com">info@company.com</a> | Phone: +123 456 7890</p>
-</footer>
-
+    <div class="footer">
+        <p>Thank you for choosing our airline! If you have any questions, feel free to contact our support team.</p>
+        <p>www.example-airline.com | +1-800-555-1234 | support@example-airline.com</p>
+    </div>
 </body>
 </html>
-
 `;
 
 
-            const htmlContent = content(travellerDetails, selectedFlight, travelers);
             // Step 1: Generate PDF
             const response = await fetch('/api/generate-pdf', {
                 method: 'POST',
@@ -1088,6 +770,7 @@ const PurchasePage = () => {
             toast.error(error.message || 'An unexpected error occurred!');
         }
     };
+
 
     // Function for send sms to customer mobile number
     const handleSMSSubmit = async (travelerData, selectedFlight) => {

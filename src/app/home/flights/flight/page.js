@@ -1361,7 +1361,7 @@ const FlightResultCompnent = () => {
                                 <b>Note:</b> All the fares displayed are for One Way Trip and are in
                                 USD, inclusive of base fare, taxes and service fees. Additional{" "}
                                 <a
-                                    href="/assets/baggage-fees"
+                                    href="/baggage-fees"
                                     style={{ color: "#4863db" }}
                                     target="_blank"
                                 >
@@ -1375,7 +1375,7 @@ const FlightResultCompnent = () => {
                                 <span id="covidAirlinemsg" style={{ display: "none" }}>
                                     One Way Trip and are in USD, inclusive of base fare, taxes and
                                     service fees. Additional{" "}
-                                    <a href="/assets/baggage-fees" target="_blank">
+                                    <a href="/baggage-fees" target="_blank">
                                         baggage fees
                                     </a>{" "}
                                     may apply as per the airline(s) policies. Some of the flights
