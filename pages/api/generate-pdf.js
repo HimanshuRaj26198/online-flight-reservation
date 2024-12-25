@@ -1,23 +1,36 @@
-import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
+
+
+let chrome = {};
+let puppeteer;
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+    chrome = require("chrome-aws-lambda");
+    puppeteer = require("puppeteer-core");
+} else {
+    puppeteer = require("puppeteer");
+}
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         const { htmlContent } = req.body;
 
         try {
-            // Set the executable path conditionally for production
-            const isProduction = process.env.NODE_ENV === 'production';
-            const chromePath = '/vercel/.cache/puppeteer/chrome/linux-131.0.6778.108/chrome-linux64/chrome';
+            let options = {};
 
-
+            if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+                options = {
+                    args: [...chrome.args, '--no-sandbox', '--disable-setuid-sandbox'],
+                    executablePath: await chrome.executablePath
+                }
+            } else {
+                options = {
+                    headless: true,
+                    args: ['--no-sandbox', '--disable-setuid-sandbox']
+                }
+            }
             // Launch Puppeteer browser
-            const browser = await puppeteer.launch({
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
-                ...(isProduction && { executablePath: chromePath })
-            });
+            const browser = await puppeteer.launch(options);
             const page = await browser.newPage();
             await page.setContent(htmlContent);
 
