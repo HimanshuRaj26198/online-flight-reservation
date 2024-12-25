@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "prebuild": "npm install puppeteer"
+    "build": "npm run install-puppeteer && next build",
+    "start": "next start"
   },
   "dependencies": {
     "agent-base": "^7.1.1",
