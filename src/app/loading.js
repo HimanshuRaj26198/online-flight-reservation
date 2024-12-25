@@ -87,7 +87,7 @@ const Loading = ({ cabin, total, depDate, origin, destination, originName, destN
             )}
             <span id="loadermsg" style={{ fontSize: "12px", color: "rgb(255, 127, 0)", display: "none" }}></span>
         </div>
-        <div class="midum-overlay" id="fadebackground" bis_skin_checked="1"></div>
+        <div className="midum-overlay" id="fadebackground" bis_skin_checked="1"></div>
     </div>
 }
 

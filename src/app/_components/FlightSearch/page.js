@@ -315,7 +315,7 @@ const FlightSearch = ({ airline, selectedDes }) => {
     }, []);
 
     return <>
-        <form autocomplete="off" id="FlightForm" >
+        <form autoComplete="off" id="FlightForm" >
             <div className="searchBg">
                 {/* Trip */}
                 <div className="trip-type">
@@ -537,7 +537,7 @@ const FlightSearch = ({ airline, selectedDes }) => {
                                             value={`${travellerDetail.adultCount} Traveller, ${travellerDetail.childrenCount ? travellerDetail.childrenCount + "Children," : ""} ${travellerDetail.infanctCount ? travellerDetail.infanctCount + "Infants," : ""} ${travellerDetail.cabinType && travellerDetail.cabinType} `}
                                             onClick={() => { setShowPax((p) => !p) }}
                                             readonly="readonly"
-                                            autocomplete="off"
+                                            autoComplete="off"
                                             className="hand"
                                             ref={paxRef}
                                         />
