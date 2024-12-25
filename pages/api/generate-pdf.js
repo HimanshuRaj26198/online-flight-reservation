@@ -10,7 +10,7 @@ export default async function handler(req, res) {
             // Launch Puppeteer browser
             const browser = await puppeteer.launch({
                 headless: true,
-                args: process.env.NODE_ENV === 'production' ? ['--no-sandbox', '--disable-setuid-sandbox'] : [],
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
             });
             const page = await browser.newPage();
             await page.setContent(htmlContent);
