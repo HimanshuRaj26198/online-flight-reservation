@@ -1713,7 +1713,7 @@ const UnitedAirlines = () => {
                         </div>
                         <div className="holder">
                             <div className="column">
-                                <a href="/assets/baggage-fees.html" target="_blank">
+                                <a href="/baggage-fees" target="_blank">
                                     <img src="/assets/images/home/new/baggage.jpg" alt="baggage" />
                                     <h4>Baggage</h4>
                                 </a>

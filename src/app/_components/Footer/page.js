@@ -98,7 +98,7 @@ const Footer = () => {
                                                     <div className="col-xs-12">
                                                         <div className="form_row">
                                                             <input type="text" placeholder="Name" id="subscribename"
-                                                                className="subscribe-input alphanumeric" autocomplete="off" />
+                                                                className="subscribe-input alphanumeric" autoComplete="off" />
                                                             <i className="icon fa fa-user-o"></i>
                                                         </div>
                                                     </div>
@@ -116,15 +116,15 @@ const Footer = () => {
                                                                 className="inputform" readOnly="readonly" value="+1" />
                                                             <input type="tel" id="mobile-num" placeholder="Mobile number"
                                                                 maxLength="12" minLength="10"
-                                                                className="inputform phone_number numeric" autocomplete="off" />
+                                                                className="inputform phone_number numeric" autoComplete="off" />
                                                         </div>
                                                     </div>
                                                     <div className="col-xs-12 terms inputSet">
                                                         <div className="terms"> I would like to receive SMS and email from
                                                             onlineflightreservation.com with the latest offers and promotions. I have
                                                             read and agree to the <a target="_blank"
-                                                                href="/terms-conditions">Terms and Conditions</a> and 
-                                                         <a href="/privacy-policy" target="_blank">privacy policy
+                                                                href="/terms-conditions">Terms and Conditions</a> and
+                                                            <a href="/privacy-policy" target="_blank">privacy policy
                                                             </a>.
                                                         </div>
                                                     </div>
