@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import chromium from '@sparticuz/chromium';
 
+//comment
+
 let puppeteer;
 if (process.env.AWS_LAMBDA_FUNCTION_VERSION || process.env.NODE_ENV === "production") {
     puppeteer = require("puppeteer-core");
