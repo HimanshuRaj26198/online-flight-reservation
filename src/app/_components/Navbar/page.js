@@ -320,7 +320,7 @@ const Navbar = () => {
                                                     id="displayusername_mob"
                                                     className="visible-xs short_name"
                                                 >
-                                                    {username.charAt(0)}
+                                                    {username}
                                                 </span>
                                                 <span className="displayusername hidden-xs">
                                                     <span>Welcome</span> {username}
@@ -343,7 +343,7 @@ const Navbar = () => {
                                                 <li>
                                                     <a
                                                         href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('MyBooking/[my-booking]')}
+                                                        onClick={() => handleNavigation('mybooking/[my-booking]')}
                                                     >
                                                         My Booking
                                                     </a>
@@ -351,26 +351,26 @@ const Navbar = () => {
                                                 <li>
                                                     <a
                                                         href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('home/MyInformation/[my-information]')}
+                                                        onClick={() => handleNavigation('myinformation/[my-information]')}
                                                     >
                                                         My Information
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('home/LatterOffer/[letter-offer]')}>
+                                                        onClick={() => handleNavigation('latestoffer/[latest-offer]')}>
                                                         Latest Offer
                                                     </a>
                                                 </li>
                                                 <li id="profile_setting" style={{ display: 'block' }}>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('home/Settings/[settings]')}>
+                                                        onClick={() => handleNavigation('settings/[settings]')}>
                                                         Settings
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('home/WriteToUs/[write-to-us]')}>
+                                                        onClick={() => handleNavigation('writetous/[write-to-us]')}>
                                                         Write To Us
                                                     </a>
                                                 </li>

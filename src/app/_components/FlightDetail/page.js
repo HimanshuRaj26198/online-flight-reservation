@@ -317,9 +317,9 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
 
                     {/* <!--<div className="refund-subtital">Choose Refundable Booking and receive a flight refund <b>($79.80)</b> even <b>up to 60 days</b> after you missed the flight and can <b>provide evidence</b> for one of the many reasons including:</div>--> */}
 
-                    <div className="refund-subtital" bis_skin_checked="1">Upgrade your booking and receive a <b>100% refund</b> if you cannot attend and can evidence one of the many reasons in our <a onClick="window.open('https://www.refundable.me/extended/en/', 'info', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=600, screenX=50,screenY=50')" href="javascript: void(0);" className="text-link" style={{ color: "#1a58c4" }}>Terms &amp; Conditions</a>, which you accept when you select a Refundable Booking.</div>
+                    <div className="refund-subtital" bis_skin_checked="1">Upgrade your booking and receive a <b>100% refund</b> if you cannot attend and can evidence one of the many reasons in our Terms &amp; Conditions, which you accept when you select a Refundable Booking.</div>
 
-                    <div className="covid-txt" bis_skin_checked="1">COVID-19 Infection and Isolation, <a onClick="window.open('https://www.refundable.me/covid/', 'info', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=600, screenX=50,screenY=50')" href="javascript: void(0);" className="text-link">see details</a></div>
+                    <div className="covid-txt" bis_skin_checked="1">COVID-19 Infection and Isolation, see details</div>
 
                     <div className="check-list" bis_skin_checked="1">
                         <img src="/assets/images/listing/shild.png" alt="shild" className="icon_image" />
@@ -470,7 +470,7 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
                         </price>
                         {/* <div className="usp-tabs">
                                     <ul>
-                                        <li className="hidden-sm hidden-xs" style="cursor:pointer; border-right:0;"><a aria-hidden="true" onClick="window.open('/assets/baggage-fees-info?airline=AI','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=500,width=500,height=300');">Baggage Fees <i className="fa fa-suitcase"></i></a></li>
+                                        <li className="hidden-sm hidden-xs" style="cursor:pointer; border-right:0;"><a aria-hidden="truej" onClick="windjow.open('/assets/baggage-fees-info?airline=AI','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=500,width=500,height=300');">Baggage Fees <i className="fa fa-suitcase"></i></a></li>
                                         <li className="visible-xs visible-sm" style="cursor:pointer; border-right:0;"><a onClick="Filter.getflightbaggage('AI')" data-toggle="modal" data-target="#baggage-fees-popup">Baggage Fees <i className="fa fa-suitcase"></i></a></li>
                                     </ul>
                                 </div>

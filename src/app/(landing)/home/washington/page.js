@@ -1244,7 +1244,7 @@ const lasVegas = () => {
                                                     type="text"
                                                     id="txtCruiseDest"
                                                     minlength="1"
-                                                    maxlength="100"
+                                                    maxLength="100"
                                                     placeholder="Destination"
                                                     autoComplete="off"
                                                 />
@@ -1255,7 +1255,7 @@ const lasVegas = () => {
                                                     type="text"
                                                     id="txtCruiseLine"
                                                     minlength="1"
-                                                    maxlength="100"
+                                                    maxLength="100"
                                                     placeholder="Cruise Line"
                                                     autoComplete="off"
                                                 />
@@ -1266,7 +1266,7 @@ const lasVegas = () => {
                                                     type="text"
                                                     id="txtCruiseLength"
                                                     minlength="1"
-                                                    maxlength="3"
+                                                    maxLength="3"
                                                     placeholder="Cruise Length"
                                                     autoComplete="off"
                                                 />
@@ -1279,7 +1279,7 @@ const lasVegas = () => {
                                                     type="text"
                                                     id="txtCruiseGuestName"
                                                     minlength="1"
-                                                    maxlength="100"
+                                                    maxLength="100"
                                                     placeholder="Name"
                                                     className="cc"
                                                     autoComplete="off"
@@ -1294,7 +1294,7 @@ const lasVegas = () => {
                                                     type="text"
                                                     id="txtCruiseGuestEmail"
                                                     minlength="1"
-                                                    maxlength="100"
+                                                    maxLength="100"
                                                     placeholder="Email"
                                                     className="cc"
                                                     autoComplete="off"
@@ -1318,7 +1318,7 @@ const lasVegas = () => {
                                                     id="txtCruiseGuestPhoneNo"
                                                     className="phoneno"
                                                     minlength="10"
-                                                    maxlength="15"
+                                                    maxLength="15"
                                                     placeholder="Phone No"
                                                     autoComplete="off"
                                                 />
@@ -1332,7 +1332,6 @@ const lasVegas = () => {
                                                     <button
                                                         id="btnReqACruiseCall"
                                                         className="search-btn"
-                                                        onClick="return cruise.submitReqACruiseCallRQData();"
                                                     >
                                                         Request a Call
                                                     </button>

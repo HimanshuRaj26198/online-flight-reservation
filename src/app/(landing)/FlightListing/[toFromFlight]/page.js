@@ -8,7 +8,7 @@ import airportsDB from "../../../../lib/airports.json";
 import FlightSearch from '@/app/_components/FlightSearch/page';
 import FlightDetail from "@/app/_components/FlightDetail/page";
 import { motion } from 'framer-motion';
-import Loading from "@/app/loading";
+import Loading from "@/app/(landing)/loading";
 import OfferPopup from "@/app/_components/OfferPopup/page";
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -1706,7 +1706,7 @@ const FlightListing = () => {
                         </div>
                         <div className="discription__block">
                             <p>
-                                Disclaimer- Lookbyfare is an independent travel portal. Its parent
+                                Disclaimer- OnlineFlightReservations is an independent travel portal. Its parent
                                 company is A Red Diamond Affair LLC. The information that's
                                 displayed on this website, www.lookbyfare.com, is for general
                                 purposes. All the necessary steps have been taken to ensure that the
@@ -2146,7 +2146,7 @@ const FlightListing = () => {
                                             <div className="form-row">
                                                 <div className="terms">
                                                     {" "}
-                                                    By signing up, I agree to Lookbyfare General{" "}
+                                                    By signing up, I agree to OnlineFlightReservations General{" "}
                                                     <a
                                                         href="/us/terms-conditions"
                                                         target="_blank"

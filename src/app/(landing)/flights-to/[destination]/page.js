@@ -1216,7 +1216,7 @@ const DestinationPage = () => {
                                                     type="text"
                                                     id="txtCruiseDest"
                                                     minLength="1"
-                                                    maxlength="100"
+                                                    maxLength="100"
                                                     placeholder="Destination"
                                                     autoComplete="off"
                                                 />
@@ -1227,7 +1227,7 @@ const DestinationPage = () => {
                                                     type="text"
                                                     id="txtCruiseLine"
                                                     minLength="1"
-                                                    maxlength="100"
+                                                    maxLength="100"
                                                     placeholder="Cruise Line"
                                                     autoComplete="off"
                                                 />
@@ -1238,7 +1238,7 @@ const DestinationPage = () => {
                                                     type="text"
                                                     id="txtCruiseLength"
                                                     minLength="1"
-                                                    maxlength="3"
+                                                    maxLength="3"
                                                     placeholder="Cruise Length"
                                                     autoComplete="off"
                                                 />
@@ -1251,7 +1251,7 @@ const DestinationPage = () => {
                                                     type="text"
                                                     id="txtCruiseGuestName"
                                                     minLength="1"
-                                                    maxlength="100"
+                                                    maxLength="100"
                                                     placeholder="Name"
                                                     className="cc"
                                                     autoComplete="off"
@@ -1263,7 +1263,7 @@ const DestinationPage = () => {
                                                     type="text"
                                                     id="txtCruiseGuestEmail"
                                                     minLength="1"
-                                                    maxlength="100"
+                                                    maxLength="100"
                                                     placeholder="Email"
                                                     className="cc"
                                                     autoComplete="off"
@@ -1284,7 +1284,7 @@ const DestinationPage = () => {
                                                     id="txtCruiseGuestPhoneNo"
                                                     className="phoneno"
                                                     minLength="10"
-                                                    maxlength="15"
+                                                    maxLength="15"
                                                     placeholder="Phone No"
                                                     autoComplete="off"
                                                 />
@@ -1298,7 +1298,6 @@ const DestinationPage = () => {
                                                     <button
                                                         id="btnReqACruiseCall"
                                                         className="search-btn"
-                                                        onClick="return cruise.submitReqACruiseCallRQData();"
                                                     >
                                                         Request a Call
                                                     </button>

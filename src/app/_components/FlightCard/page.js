@@ -108,7 +108,6 @@ const FlightCard = ({ flight, setFlightDetailVisible, setSelectedFlight, oneway 
                 <div
                     id="lbyfclickflightdetail"
                     className="row clickflightdetail containerselect"
-                // onClick="Filter.getflightdetails('FTT3001','BOS-PIT-NK-1165-20240830-ECON.PIT-LAX-NK-392-20240830-ECON.','')"
                 >
                     <div className="col-sm-10 col-xs-12" id="fltlst">
                         <div className="depart-flight">

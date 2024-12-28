@@ -1699,7 +1699,7 @@ const MyBooking = () => {
                                     </div>
                                     <div id="personal_infoform">
                                         <p>
-                                            Enter the email you use for Lookbyfare and we'll send your
+                                            Enter the email you use for OnlineFlightReservations and we'll send your
                                             instructions to reset your pin
                                         </p>
                                         <form id="reset_Req" name="reset_Req">

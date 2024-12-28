@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Cheap Flights, Compare Flights & Airline Deals - onlineflightreservations.com",
-  description: "Find the cheapest flight tickets with OnlineFlightReservations! Compare prices effortlessly and book the best deals on flights through our advanced algorithm. Start saving on your next trip today",
+  description: "Find the cheapest flight tickets with OnlineFlightReservations ! Compare prices effortlessly and book the best deals on flights through our advanced algorithm. Start saving on your next trip today",
   icons: {
     icon: '/favicon.ico'
   }

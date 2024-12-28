@@ -2,11 +2,11 @@
 import FlightCard from "@/app/_components/FlightCard/page";
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import airportsDB from "../../../../../lib/airports.json";
-import airlines from "../../../../../lib/airlines.json";
+import airportsDB from "../../../../../../lib/airports.json";
+import airlines from "../../../../../../lib/airlines.json";
 import FlightDetail from "@/app/_components/FlightDetail/page";
 import { motion } from 'framer-motion';
-import Loading from "@/app/loading";
+import Loading from "@/app/(landing)/loading";
 import OfferPopup from "@/app/_components/OfferPopup/page";
 import FlightSearch from "@/app/_components/FlightSearch/page";
 import FlightOfferCard from "@/app/_components/FlightOffers/page";

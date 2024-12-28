@@ -9,10 +9,8 @@ import BillingInfo from "@/app/_components/billingInfo/page";
 import SignInComponent from "@/app/_components/SignIn/page";
 import SignUpComponent from "@/app/_components/SignUp/page"
 import { collection, addDoc, setDoc, doc, updateDoc, getDoc, arrayUnion } from "firebase/firestore";
-import { fireStore, useAuth } from '../../../../../_components/firebase/config';
+import { fireStore, useAuth } from "../../../../../../_components/firebase/config"
 import Loadings from "@/app/Loadings";
-
-import img from "../../../../../../../public/assets/logo.png";
 
 const PurchasePage = () => {
 
@@ -1363,7 +1361,7 @@ const PurchasePage = () => {
 
                 <!-- Footer Section -->
                 <footer>
-                    <p>&copy; 2024 OnlineFlightReservations. All Rights Reserved.</p>
+                    <p>&copy; 2024 OnlineFlightReservations . All Rights Reserved.</p>
                     <p>Address | <a href="mailto:contact@onlineflightreservation.com">contact@onlineflightreservation.com</a> | Phone: +1-(888)-267-5955</p>
                 </footer>
 
