@@ -17,8 +17,6 @@ const MyInformation = () => {
     const [activeTab, setActiveTab] = useState("tab1");
     const [isModalOpen, setIsModalOpen] = useState(false);
     
-   
-
     const currentUser = JSON.parse(localStorage.getItem("current-user"));
 
     const handleOpenModal = () => {
