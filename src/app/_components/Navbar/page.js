@@ -45,8 +45,8 @@ const Navbar = () => {
     };
 
     const handleNavigation = (path) => {
-        router.push(path); // Navigate to the provided path
-        setDropdownOpens(false); // Optionally close the dropdown when a menu item is clicked
+        router.push(path);
+        setDropdownOpens(false);
     };
 
     useEffect(() => {
@@ -343,34 +343,40 @@ const Navbar = () => {
                                                 <li>
                                                     <a
                                                         href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('home/profilePage/profile')}
+                                                        onClick={() => handleNavigation('MyBooking/[my-booking]')}
                                                     >
                                                         My Booking
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/us/profile/profile/myinformation" target="_blank" className="myinformation">
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('home/MyInformation/[my-information]')}
+                                                    >
                                                         My Information
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/us/profile/profile/offers" target="_blank" className="reward">
+                                                    <a href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('home/LatterOffer/[letter-offer]')}>
                                                         Latest Offer
                                                     </a>
                                                 </li>
                                                 <li id="profile_setting" style={{ display: 'block' }}>
-                                                    <a href="/us/profile/profile/settings" target="_blank" className="setting">
+                                                    <a href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('home/Settings/[settings]')}>
                                                         Settings
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/us/profile/profile/writeus" target="_blank" className="deal">
+                                                    <a href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('home/WriteToUs/[write-to-us]')}>
                                                         Write To Us
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a onClick={handleSignOut} className="login">
-                                                        &nbsp;<span className="hidden-xs">Sign out</span>
+                                                        &nbsp; <span className="hidden-xs">Sign out</span>
                                                     </a>
                                                 </li>
                                             </ul>

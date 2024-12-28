@@ -28,7 +28,7 @@ const SignInComponent = ({ hideLoginPopup, showSignUp }) => {
                 sessionStorage.setItem('user', true);
                 sessionStorage.setItem('UserAuthentication', JSON.stringify(res));
                 hideLoginPopup();
-                toast.success("Successfully logged in!");
+                // toast.success("Successfully logged in!");
             } else {
                 // Handle unexpected response from the server
                 throw new Error("Unexpected server response.");
