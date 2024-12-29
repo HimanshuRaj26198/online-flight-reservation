@@ -50,7 +50,7 @@
           font-size: 12px;
           color: #fff;
           text-decoration: none;
-          background: url(/assets/images/user-profile/icon-login1.png) left top no-repeat; }
+          background: url(/assets/us/profile/profile/images/user-profile/icon-login1.png) left top no-repeat; }
           .topmenuBox ul li a.login:hover, .topmenuBox ul li a.login:focus {
             color: #fff; }
       .topmenuBox ul li .phone-number {
@@ -128,7 +128,7 @@
                   height: 19px;
                   display: block;
                   content: "";
-                  background: url(/assets/images/user-profile/profile-icons.png) left -416px no-repeat; }
+                  background: url(/assets/us/profile/profile/images/user-profile/profile-icons.png) left -416px no-repeat; }
                 .topmenuBox ul li.loginDropdown ul.loginMenu li a.reward:before {
                   height: 25px;
                   background-position: 0 -445px; }
@@ -1098,7 +1098,7 @@
           height: 19px;
           display: block;
           content: "";
-          background: url(/assets/images/user-profile/profile-icons.png) left top no-repeat; }
+          background: url(/assets/us/profile/profile/images/user-profile/profile-icons.png) left top no-repeat; }
         .leftMenu ul li a.active {
           color: #ff7f00;
           background: #fff;

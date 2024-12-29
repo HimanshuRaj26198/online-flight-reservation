@@ -33,6 +33,7 @@ const Navbar = () => {
                 sessionStorage.removeItem("user");
                 setIsLoggedIn(false);
                 setUsername('');
+                // localStorage.removeItem("current-user");
 
                 // Show success toast message
                 toast.success("You have successfully signed out.");

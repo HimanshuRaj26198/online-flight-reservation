@@ -49,6 +49,7 @@ const SignInComponent = ({ hideLoginPopup, showSignUp }) => {
             console.log("Google sign-in successful", user);
             sessionStorage.setItem('user', true);
             sessionStorage.setItem('UserAuthentication', JSON.stringify(result));
+            // localStorage.setItem('current-user', JSON.stringify(result));
             hideLoginPopup();
             toast.success("Google sign-in successful");
         } catch (error) {
