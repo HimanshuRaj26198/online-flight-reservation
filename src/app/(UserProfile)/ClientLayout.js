@@ -10,12 +10,16 @@ export default function ClientLayout({ children }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const router = useRouter();
-    const [activeTab, setActiveTab] = useState("mytrip"); 
+    const [activeTab, setActiveTab] = useState("mytrip");
+    const [currentUser, setCurrentUser] = useState(null);
 
-    const curentUser=JSON.parse(localStorage.getItem("current-user"));
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("current-user"));
+        setCurrentUser(user);
+    }, [])
 
     // console.log(curentUser.displayName,"USer Details");
-    
+
 
 
     // Menu items array
@@ -193,7 +197,7 @@ export default function ClientLayout({ children }) {
                                         </figure>
                                         <div className="name_col">
                                             <div className="name">
-                                                <span className="displayusername_2">{curentUser.displayName}</span>
+                                                <span className="displayusername_2">Shubham</span>
                                                 <div className="small">
                                                     Last login: <br className="d-none d-xl-block" />
                                                     <span className="LastLoginDate">
