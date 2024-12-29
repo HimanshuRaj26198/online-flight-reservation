@@ -26,6 +26,7 @@ const SignInComponent = ({ hideLoginPopup, showSignUp }) => {
             if (res?.user) {
                 console.log(res, "ROLE BASED");
                 sessionStorage.setItem('user', true);
+                sessionStorage.setItem('UserAuthentication', JSON.stringify(res));
                 hideLoginPopup();
                 toast.success("Successfully logged in!");
             } else {

@@ -6,6 +6,7 @@ import SignUpComponent from "../SignUp/page";
 import { auth } from "../firebase/config";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
     const [mobMenuOpen, setMobMenuOpen] = useState(false);
@@ -13,6 +14,50 @@ const Navbar = () => {
     const [loginPopupVisible, setLoginPopupVisible] = useState(false);
     const [signUpVisible, setSignUpVisible] = useState(false);
     const [user, setUser] = useState(null);
+    const [username, setUsername] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [dropdownOpens, setDropdownOpens] = useState(false);
+
+    const router = useRouter();
+
+    // Function to toggle the dropdown visibility
+    const toggleDropdown = () => {
+        setDropdownOpens(!dropdownOpens);
+    };
+
+    // Handle sign out
+    const handleSignOut = () => {
+        signOut(auth)
+            .then(() => {
+                // Remove user session info from sessionStorage
+                sessionStorage.removeItem("user");
+                setIsLoggedIn(false);
+                setUsername('');
+
+                // Show success toast message
+                toast.success("You have successfully signed out.");
+            })
+            .catch((error) => {
+                // Show error message if sign-out fails
+                console.error("Sign-out error: ", error);
+                toast.error("An error occurred while signing out. Please try again.");
+            });
+    };
+
+    const handleNavigation = (path) => {
+        router.push(path); // Navigate to the provided path
+        setDropdownOpens(false); // Optionally close the dropdown when a menu item is clicked
+    };
+
+    useEffect(() => {
+        // Retrieve the user authentication data from sessionStorage
+        const storedUser = sessionStorage.getItem('UserAuthentication');
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUsername(parsedUser.displayName); // Set the username once on mount
+        }
+    }, [])
+
 
     const hideLoginPopup = () => {
         setLoginPopupVisible(false);
@@ -249,76 +294,93 @@ const Navbar = () => {
                         </ul>
                     </div>
 
+                    {/* Profile menu*/}
                     <ul className="profile_menu">
                         <li>
                             <div className="topmenuBox">
-                                <ul id="divlogin" style={{ display: "block" }}>
-                                    <li style={{ cursor: "pointer" }} className="dropdown loginDropdown">
-                                        {
-                                            // Check if the user is logged in
-                                            !user || !sessionStorage.getItem('user') ? (
-                                                // If not logged in, show Sign In option
-                                                <a onClick={() => setLoginPopupVisible(true)} className="login">
-                                                    &nbsp;<span className="hidden-xs">Sign in</span>
-                                                </a>
-                                            ) : (
-                                                // If logged in, show Sign Out option
-                                                <a
-                                                    onClick={() => {
-                                                        // Sign out user from Firebase
-                                                        signOut(auth)
-                                                            .then(() => {
-                                                                // Remove user session info from sessionStorage
-                                                                sessionStorage.removeItem("user");
 
-                                                                // Show toast message after successful sign out
-                                                                toast.success("You have successfully signed out.");
-                                                            })
-                                                            .catch((error) => {
-                                                                // Show error message if sign-out fails
-                                                                console.error("Sign-out error: ", error);
-                                                                toast.error("An error occurred while signing out. Please try again.");
-                                                            });
-                                                    }}
-                                                    className="login"
+                                {!user || !sessionStorage.getItem('user') ? (
+                                    <ul id="divlogin">
+                                        <li className="dropdown loginDropdown">
+                                            <a
+                                                href="javascript:void(0);"
+                                                onClick={() => setLoginPopupVisible(true)}
+                                                className="login"
+                                            >
+                                                &nbsp;<span className="hidden-xs">Sign in</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                ) : (
+
+                                    <ul id="divwelcome">
+                                        <li className="dropdown loginDropdown">
+                                            <a href="javascript:void(0);" onClick={toggleDropdown} className="login">
+                                                <span
+                                                    id="displayusername_mob"
+                                                    className="visible-xs short_name"
                                                 >
-                                                    &nbsp;<span className="hidden-xs">Sign out</span>
-                                                </a>
-                                            )
-                                        }
-                                    </li>
-                                </ul>
-                                {/* <ul id="divwelcome" style={{ display: "none" }}>
-                                    <li className="dropdown loginDropdown">
-                                        <a href="#" className="login">
-                                            <span id="displayusername_mob" className="visible-xs short_name">S</span>
-                                            <span className="displayusername hidden-xs"></span>&nbsp;<span
-                                                className="fa fa-angle-down support-icon hidden-xs"></span>
-                                        </a>
-                                        <ul className="loginMenu">
-                                            <li className="visible-xs mobileusername">
-                                                <div className="welcomename-mobile">
-                                                    <span className="displayusername"></span>
-                                                </div>
-                                            </li>
-                                            <li><a href="us/profile/profile/mytrip.html" target="_blank">My Booking</a>
-                                            </li>
-                                            <li><a href="us/profile/profile/myinformation.html" target="_blank"
-                                                className="myinformation">My Information</a></li>
-                                            <li><a href="us/profile/profile/offers.html" target="_blank"
-                                                className="reward">Latest Offer</a></li>
-                                            <li id="profile_setting"><a href="us/profile/profile/settings.html"
-                                                target="_blank" className="setting">Settings</a></li>
-                                            <li><a href="us/profile/profile/writeus.html" target="_blank"
-                                                className="deal">Write To Us</a></li>
-                                            <li><a className="signout">Sign Out</a></li>
-                                        </ul>
+                                                    {username.charAt(0)}
+                                                </span>
+                                                <span className="displayusername hidden-xs">
+                                                    <span>Welcome</span> {username}
+                                                </span>
+                                                &nbsp;
+                                                <span className="fa fa-angle-down support-icon hidden-xs" />
+                                            </a>
 
-                                    </li>
-                                </ul> */}
+                                            {/* Dropdown Menu */}
+                                            <ul
+                                                className={`loginMenu ${dropdownOpens ? 'show' : ''}`} // Toggle visibility based on state
+                                            >
+                                                <li className="visible-xs mobileusername">
+                                                    <div className="welcomename-mobile">
+                                                        <span className="displayusername">
+                                                            <span>Welcome</span> {username}
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('home/profilePage/profile')}
+                                                    >
+                                                        My Booking
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/us/profile/profile/myinformation" target="_blank" className="myinformation">
+                                                        My Information
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/us/profile/profile/offers" target="_blank" className="reward">
+                                                        Latest Offer
+                                                    </a>
+                                                </li>
+                                                <li id="profile_setting" style={{ display: 'block' }}>
+                                                    <a href="/us/profile/profile/settings" target="_blank" className="setting">
+                                                        Settings
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/us/profile/profile/writeus" target="_blank" className="deal">
+                                                        Write To Us
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a onClick={handleSignOut} className="login">
+                                                        &nbsp;<span className="hidden-xs">Sign out</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                )}
                             </div>
                         </li>
                     </ul>
+                    {/* End profile menu*/}
                 </div>
             </nav>
 
