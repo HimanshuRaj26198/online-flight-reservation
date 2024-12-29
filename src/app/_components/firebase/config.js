@@ -39,8 +39,6 @@ if (typeof window !== 'undefined') {
     googleAuth = new GoogleAuthProvider();
 }
 
-
-
 export { app, auth, fireStore, googleAuth };
 
 // Create a hook to get the current user
@@ -56,6 +54,16 @@ export function useAuth() {
         return () => unsubscribe();
     }, []);
     console.log(currentUser, "user from config");
-    localStorage.setItem("current-user", JSON.stringify(currentUser));
+
+    useEffect(() => {
+        // Check if we are running on the client side (browser)
+        if (typeof window !== "undefined") {
+            if (currentUser) {
+                localStorage.setItem("current-user", JSON.stringify(currentUser)); // Save to localStorage
+            } else {
+                localStorage.removeItem("current-user"); // Optionally clear it when the user logs out or is null
+            }
+        }
+    }, [currentUser]);
     return currentUser;
 }

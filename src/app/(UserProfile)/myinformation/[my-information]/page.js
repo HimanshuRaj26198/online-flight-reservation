@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Country, State, City } from "country-state-city"
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { fireStore, useAuth } from "../../../_components/firebase/config";
 
 const MyInformation = () => {
@@ -16,20 +16,10 @@ const MyInformation = () => {
     const [cities, setCities] = useState([]);
     const [activeTab, setActiveTab] = useState("tab1");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    
+    const [travellers, setTravellers] = useState([]);
+    const [selectedTraveller, setSelectedTraveller] = useState(null);
+
     const currentUser = JSON.parse(localStorage.getItem("current-user"));
-
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleTabClick = (tabId) => {
-        setActiveTab(tabId);
-    };
 
     const [personalInfoData, setPersonalInfoData] = useState({
         firstname: "",
@@ -40,10 +30,6 @@ const MyInformation = () => {
         airport_name: "",
         tsa_name: "",
     });
-
-    useEffect(()=>{
-        fetchPersonalInfo();
-    }, []);
 
     const [contactInfoData, setContactInfoData] = useState({
         addressline1: "",
@@ -75,6 +61,26 @@ const MyInformation = () => {
         dobid: "",
         country: "",
     });
+
+    useEffect(() => {
+        fetchPersonalInfo();
+        fetchContactInfo();
+        fetchBillingInfo();
+        fetchTravellerInfo();
+    }, []);
+
+    const handleOpenModal = (traveller) => {
+        setSelectedTraveller(traveller);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleTabClick = (tabId) => {
+        setActiveTab(tabId);
+    };
 
     const handleCountryChange = (e) => {
         const countryCode = e.target.value;
@@ -186,6 +192,34 @@ const MyInformation = () => {
         }
     };
 
+    const handleTravellerSave = async () => {
+        try {
+            const userRef = doc(fireStore, "users", currentUser.uid);
+
+            // Add the new traveler to the array using `arrayUnion`
+            await updateDoc(userRef, {
+                travellerInfo: arrayUnion({ ...travellerInfoData, id: Date.now() }), // Add unique ID
+            });
+
+            console.log("Saved Billings Information Data:", travellerInfoData);
+            setTravellerInfoData({
+                fname: "",
+                mname: "",
+                lname: "",
+                genderpopup: "",
+                dobid: "",
+                country: "",
+            }); // Reset form
+            setIsModalOpen(false);
+            fetchTravellerInfo();
+        } catch (error) {
+            console.error("Error saving data:", error);
+        }
+
+    };
+
+    // Added all 
+
     const fetchPersonalInfo = async () => {
         console.log("fetchPersonalInfo triggered");
         console.log(currentUser, "currentUser");
@@ -275,6 +309,52 @@ const MyInformation = () => {
         }
     };
 
+    const fetchTravellerInfo = async () => {
+        try {
+            // Reference to the user's document in Firestore
+            const userRef = doc(fireStore, "users", currentUser.uid);
+            const userDoc = await getDoc(userRef);
+
+            if (userDoc.exists()) {
+                // Extract the personalInfo field from the document
+                const data = userDoc.data();
+                const travellerInfo = data.travellerInfo;
+
+                if (travellerInfo) {
+                    console.log("Fetched Personal Information:", travellerInfo);
+
+                    // Update your state or UI as needed
+                    setTravellers(Array.isArray(travellerInfo) ? travellerInfo : []);
+                } else {
+                    console.log("No personal information found for the user.");
+                    setTravellers([]);
+                }
+            } else {
+                console.log("User document does not exist.");
+            }
+        } catch (error) {
+            console.error("Error fetching personal information:", error);
+            setTravellers([]);
+        }
+    };
+
+    // Delete a traveler from Firestore
+    const handleTravellerDelete = async (traveller) => {
+        try {
+            const userRef = doc(fireStore, "users", currentUser.uid);
+
+            // Remove the specific traveler using `arrayRemove`
+            await updateDoc(userRef, {
+                travellerInfo: arrayRemove(traveller),
+            });
+
+            console.log("Traveler deleted:", traveller);
+            fetchTravellerInfo(); // Refresh the local list
+        } catch (error) {
+            console.error("Error deleting traveler:", error);
+        }
+    };
+
     const handlePersonalCancel = () => {
         setIsEditing(false);
         fetchPersonalInfo();
@@ -290,13 +370,9 @@ const MyInformation = () => {
         fetchBillingInfo();
     };
 
-    const handleTravellerSave = () => {
-        console.log("Saved Traveller Information Data:", travellerInfoData);
-        setIsModalOpen(false);
-    };
-
     const handleTravellerCancel = () => {
         setIsModalOpen(false);
+        fetchTravellerInfo();
     };
 
     // Styles
@@ -705,35 +781,35 @@ const MyInformation = () => {
                                         <ul className="content_detail">
                                             <li>
                                                 <span className="label">Address Line1 :</span>{" "}
-                                                <sapn id="add1">-</sapn>{" "}
+                                                <sapn id="add1">{contactInfoData.addressline1 || "-"}</sapn>{" "}
                                             </li>
                                             <li>
                                                 <span className="label">Address Line2 :</span>{" "}
-                                                <span id="add2">-</span>
+                                                <span id="add2">{contactInfoData.addressline2 || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">City : </span>{" "}
-                                                <span id="ct">-</span>
+                                                <span id="ct">{contactInfoData.city || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">State : </span>{" "}
-                                                <span id="st">-</span>
+                                                <span id="st">{contactInfoData.state || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">Zip Code : </span>{" "}
-                                                <span id="czip">-</span>
+                                                <span id="czip">{contactInfoData.zip || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">Country : </span>{" "}
-                                                <span id="cntry">-</span>
+                                                <span id="cntry">{contactInfoData.country || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">Contact Phone : </span>{" "}
-                                                <span id="ccontact">-</span>
+                                                <span id="ccontact">{contactInfoData.phone || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">Mobile : </span>{" "}
-                                                <span id="cmobile">-</span>
+                                                <span id="cmobile">{contactInfoData.mobile || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">Email : </span>{" "}
@@ -963,31 +1039,31 @@ const MyInformation = () => {
                                         <ul className="content_detail">
                                             <li>
                                                 <span className="label">Address Line1 :</span>{" "}
-                                                <sapn id="bill_add1">-</sapn>{" "}
+                                                <sapn id="bill_add1">{billingInfoData.billaddressline1 || "-"}</sapn>{" "}
                                             </li>
                                             <li>
                                                 <span className="label">Address Line2 :</span>{" "}
-                                                <span id="bill_add2">-</span>
+                                                <span id="bill_add2">{billingInfoData.billaddressline2 || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">City : </span>{" "}
-                                                <span id="bill_ct">-</span>
+                                                <span id="bill_ct">{billingInfoData.billcity || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">State : </span>{" "}
-                                                <span id="bill_st">-</span>
+                                                <span id="bill_st">{billingInfoData.state || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">Zip Code : </span>{" "}
-                                                <span id="bill_czip">-</span>
+                                                <span id="bill_czip">{billingInfoData.billzip || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">Country : </span>{" "}
-                                                <span id="bill_cntry">-</span>
+                                                <span id="bill_cntry">{billingInfoData.country || "-"}</span>
                                             </li>
                                             <li>
                                                 <span className="label">Contact Phone : </span>{" "}
-                                                <span id="bill_ccontact">-</span>
+                                                <span id="bill_ccontact">{billingInfoData.billphone || "-"}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -1024,9 +1100,40 @@ const MyInformation = () => {
 
                                         </div>
                                     </div>
-                                    <div id="traveler_infoDetail">
-                                        <div className="row" id="traveler_htm"></div>
-                                    </div>
+                                    {Array.isArray(travellers) &&
+                                        travellers.map((traveller, index) => (
+                                            <div id="traveler_infoDetail" key={traveller.id || index}>
+                                                <div className="row" id="traveler_htm">
+                                                    <div className="col-sm-6">
+                                                        <div className="traveller_block">
+                                                            <p>
+                                                                <strong>{traveller.fname} {traveller.lname}</strong>
+                                                            </p>
+                                                            <ul className="content_detail">
+                                                                <li>
+                                                                    <span className="label">Gender :</span> {traveller.genderpopup}
+                                                                </li>
+                                                                <li>
+                                                                    <span className="label">Date Of Birth :</span> {traveller.dobid}
+                                                                </li>
+                                                                <li>
+                                                                    <span className="label">Nationality :</span> {traveller.country}
+                                                                </li>
+                                                            </ul>
+                                                            <div className="actionBtn">
+                                                                <a onClick={() => handleOpenModal(traveller)}>Edit</a>
+                                                                <span className="sep">|</span>
+                                                                <a className="delete" onClick={() => handleTravellerDelete(traveller)}>
+                                                                    Delete
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+
+
                                 </div>
                                 {/*  \ Add traveller End here / */}
                             </div>

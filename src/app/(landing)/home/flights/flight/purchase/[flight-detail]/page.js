@@ -584,7 +584,8 @@ const PurchasePage = () => {
         };
 
         const upcomingFlight = {
-            selectedFlight
+            selectedFlight, 
+            presentDate: new Date().toISOString(),
         }
 
         localStorage.setItem('travelerData', JSON.stringify(allTravelerData));
@@ -637,6 +638,7 @@ const PurchasePage = () => {
                     router.push(`/home/confirmationPage/book-flight-confirms?transactionStatus=${result.success}`)
                 } else {
                     toast.error('Error: ' + result.message);
+                    setLoading(false);
                 }
             } catch (error) {
                 toast.error('Error: ' + error.message);
