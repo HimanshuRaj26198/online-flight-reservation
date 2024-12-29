@@ -18,8 +18,12 @@ const MyInformation = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [travellers, setTravellers] = useState([]);
     const [selectedTraveller, setSelectedTraveller] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
-    const currentUser = JSON.parse(localStorage.getItem("current-user"));
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("current-user"));
+        setCurrentUser(user);
+    }, [])
 
     const [personalInfoData, setPersonalInfoData] = useState({
         firstname: "",
