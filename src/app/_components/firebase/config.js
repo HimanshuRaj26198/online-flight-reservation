@@ -45,7 +45,7 @@ export { app, auth, fireStore, googleAuth };
 
 // Create a hook to get the current user
 export function useAuth() {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState({});
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -55,6 +55,7 @@ export function useAuth() {
         // Cleanup the listener on component unmount
         return () => unsubscribe();
     }, []);
-
+    console.log(currentUser, "user from config");
+    localStorage.setItem("current-user", JSON.stringify(currentUser));
     return currentUser;
 }

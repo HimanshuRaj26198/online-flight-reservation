@@ -45,8 +45,8 @@ const Navbar = () => {
     };
 
     const handleNavigation = (path) => {
-        router.push(path); // Navigate to the provided path
-        setDropdownOpens(false); // Optionally close the dropdown when a menu item is clicked
+        router.push(path);
+        setDropdownOpens(false);
     };
 
     useEffect(() => {
@@ -320,7 +320,7 @@ const Navbar = () => {
                                                     id="displayusername_mob"
                                                     className="visible-xs short_name"
                                                 >
-                                                    {username.charAt(0)}
+                                                    {username}
                                                 </span>
                                                 <span className="displayusername hidden-xs">
                                                     <span>Welcome</span> {username}
@@ -343,34 +343,40 @@ const Navbar = () => {
                                                 <li>
                                                     <a
                                                         href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('home/profilePage/profile')}
+                                                        onClick={() => handleNavigation('mybooking/[my-booking]')}
                                                     >
                                                         My Booking
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/us/profile/profile/myinformation" target="_blank" className="myinformation">
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('myinformation/[my-information]')}
+                                                    >
                                                         My Information
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/us/profile/profile/offers" target="_blank" className="reward">
+                                                    <a href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('latestoffer/[latest-offer]')}>
                                                         Latest Offer
                                                     </a>
                                                 </li>
                                                 <li id="profile_setting" style={{ display: 'block' }}>
-                                                    <a href="/us/profile/profile/settings" target="_blank" className="setting">
+                                                    <a href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('settings/[settings]')}>
                                                         Settings
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/us/profile/profile/writeus" target="_blank" className="deal">
+                                                    <a href="javascript:void(0);"
+                                                        onClick={() => handleNavigation('writetous/[write-to-us]')}>
                                                         Write To Us
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a onClick={handleSignOut} className="login">
-                                                        &nbsp;<span className="hidden-xs">Sign out</span>
+                                                        &nbsp; <span className="hidden-xs">Sign out</span>
                                                     </a>
                                                 </li>
                                             </ul>

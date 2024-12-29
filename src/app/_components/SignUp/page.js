@@ -238,7 +238,7 @@ const SignUpComponent = ({ hideSignUp, showSignIn }) => {
                                     </div>
                                     <div className="form-row" bis_skin_checked={1}>
                                         <div className="terms" bis_skin_checked={1}>
-                                            By signing up, I agree to Lookbyfare General
+                                            By signing up, I agree to OnlineFlightReservations General
                                             <a
                                                 href="/us/terms-conditions"
                                                 target="_blank"

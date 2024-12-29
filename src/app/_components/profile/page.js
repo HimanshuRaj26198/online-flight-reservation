@@ -3,7 +3,7 @@
 profile = () => {
     return (
         <>
-        // loginBar
+            {/*  loginBar */}
             <div className="loginBar">
                 <input type="hidden" id="goo_signin" name="goo_signin" defaultValue="Yes" />
                 <div className="container">
@@ -96,7 +96,7 @@ profile = () => {
                 </div>
             </div>
 
-        // Header
+            {/*  Header */}
             <header className="header">
                 <div className="container">
                     <div className="row">
@@ -1596,7 +1596,7 @@ profile = () => {
                                         style={{ display: "none" }}
                                     >
                                         <img
-                                            src="/us/profile/profile/images/loader.gif"
+                                            src="/assets/us/profile/profile/images/loader.gif"
                                             alt="loading image"
                                         />
                                         <span>Loading...</span>
@@ -1790,7 +1790,7 @@ profile = () => {
                                         </div>
                                         <div id="personal_infoform">
                                             <p>
-                                                Enter the email you use for Lookbyfare and we'll send your
+                                                Enter the email you use for OnlineFlightReservations and we'll send your
                                                 instructions to reset your pin
                                             </p>
                                             <form id="reset_Req" name="reset_Req">
@@ -2458,7 +2458,7 @@ profile = () => {
                                 {/* Modal body */}
                                 <div className="modal-body">
                                     <div className="delete_record">
-                                        <img src="/us/profile/profile/images/cross.png" alt="" />
+                                        <img src="/assets/us/profile/profile/images/cross.png" alt="" />
                                         <h3>Are you sure?</h3>
                                         <p>Do you really want to delete these records?</p>
                                     </div>
@@ -2488,7 +2488,7 @@ profile = () => {
                     </div>
                     <div id="moreinfodiv"></div>
                     <link
-                        href="/us/profile/profile/css/payment-style.css?v=5m6mdQfsBhC7AYap3BNT0nzZeNbEPs_yEhof9rgFrqQ"
+                        href="/assets/us/profile/profile/css/payment-style.css"
                         rel="stylesheet"
                     />
                 </main>

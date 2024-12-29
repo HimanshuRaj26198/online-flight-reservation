@@ -3,47 +3,30 @@ import Cookies from "js-cookie";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/config";
 import { useState } from "react";
-import SignInComponent from "../SignIn/page";
-import SignUpComponent from "../SignUp/page";
+import Loadings from "@/app/Loadings";
 
 const FlightDetail = ({ selectedFlight, travellerDetails }) => {
     const router = useRouter();
-    const [user] = useAuthState(auth);
-    const [showSignIn, setShowSignIn] = useState(false);
-    const [showSignUp, setShowSignUp] = useState(false);
     const [refundAmount, setRefundAmount] = useState(0)
     const [isRefundable, setIsRefundable] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     console.log("isRefundable", isRefundable);
 
 
-    const hideSignIn = () => {
-        setShowSignIn(false);
-    }
-
-    const hideSignUp = () => {
-        setShowSignUp(false);
-    }
-
-    const showSignUpForm = () => {
-        setShowSignIn(false);
-        setShowSignUp(true);
-    }
-
-    const showSignInFor = () => {
-        setShowSignUp(false);
-        setShowSignIn(true);
-    }
+    const handleContinueClick = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setIsRefundable(false);
+            handleCotnueViewDetail();
+            setLoading(false);
+        }, 2000);
+    };
 
     const handleCotnueViewDetail = () => {
-        // if (!user) {
-        //     setShowSignIn(true);
-        // } else {
-            localStorage.setItem("selectedflight", JSON.stringify(selectedFlight));
-            localStorage.setItem("travellerDetails", JSON.stringify(travellerDetails));
-            router.push(`/home/flights/flight/purchase/${selectedFlight.itineraries[0].segments[0].departure.iataCode}-${selectedFlight.itineraries[0].segments[0].arrival.iataCode}`)
-        // }
-
+        localStorage.setItem("selectedflight", JSON.stringify(selectedFlight));
+        localStorage.setItem("travellerDetails", JSON.stringify(travellerDetails));
+        router.push(`/home/flights/flight/purchase/${selectedFlight.itineraries[0].segments[0].departure.iataCode}-${selectedFlight.itineraries[0].segments[0].arrival.iataCode}`)
     }
 
     function calculateLayoverTime(flightOffer) {
@@ -84,6 +67,7 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
             console.log("Not a valid date");
         }
     };
+
     const getTimeFromDate = (date, fullhours) => {
         let newDate = new Date(date);
 
@@ -139,9 +123,55 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
         return `${hours} ${minutes || '00M'}`.trim();
     }
 
+    // Inline styles
+    const styles = {
+        loadingOverlay: {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 9999, // Ensure it's on top of everything
+        },
+        loaderContainer: {
+            backgroundColor: 'white',
+            padding: '20px',
+            borderRadius: '5px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        spinner: {
+            fontSize: '30px', // Size of the spinner
+            marginRight: '10px',
+        },
+        button: {
+            padding: '10px 20px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            backgroundColor: '#4CAF50', 
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+        },
+        buttonDisabled: {
+            cursor: 'not-allowed',
+            opacity: 0.6,
+        },
+    };
+    
     return <>
-        {/* {showSignIn && <SignInComponent hideLoginPopup={hideSignIn} showSignUp={showSignUpForm} />}
-        {showSignUp && <SignUpComponent hideSignUp={hideSignUp} showSignIn={showSignInFor} />} */}
+        {loading && (
+            <div style={styles.loadingOverlay}>
+                <div style={styles.loaderContainer}>
+                    <i className="fa fa-spinner fa-spin" style={styles.spinner}></i> Loading...
+                </div>
+            </div>
+        )}
         {/* <!-- flight leg Start here  --> */}
         <div className="flight-leg-info" bis_skin_checked="1">
 
@@ -196,14 +226,10 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
 
                                         </div>
                                         <div className="clearfix" bis_skin_checked="1"></div>
-
                                     </div>
-
                                     <div className="seat-pitch" id="BLR-DEL-AI-808-20240831-ECON" style={{ display: "none" }} bis_skin_checked="1">
                                     </div>
-
                                 </div>
-
                                 <div className="clearfix" bis_skin_checked="1"></div>
                             </div>
                             {/* <!--Trip time --> */}
@@ -249,12 +275,9 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
                     <i className="fa fa-clock-o"></i> Return Trip Time: <b>{extractDuration(selectedFlight.itineraries[0].duration)}</b>
                 </div>
 
-
-
             </div>
             {/* <!-- Depart End here--> */}
             <div className="flight__content-box fare-breakup breakup_tab" id="pricetab" style={{ display: "none" }} bis_skin_checked="1">
-
 
                 {/* <!--Adult Section--> */}
                 <div className="fare-section" bis_skin_checked="1">
@@ -294,10 +317,9 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
 
                     {/* <!--<div className="refund-subtital">Choose Refundable Booking and receive a flight refund <b>($79.80)</b> even <b>up to 60 days</b> after you missed the flight and can <b>provide evidence</b> for one of the many reasons including:</div>--> */}
 
-                    <div className="refund-subtital" bis_skin_checked="1">Upgrade your booking and receive a <b>100% refund</b> if you cannot attend and can evidence one of the many reasons in our <a onClick="window.open('https://www.refundable.me/extended/en/', 'info', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=600, screenX=50,screenY=50')" href="javascript: void(0);" className="text-link" style={{ color: "#1a58c4" }}>Terms &amp; Conditions</a>, which you accept when you select a Refundable Booking.</div>
+                    <div className="refund-subtital" bis_skin_checked="1">Upgrade your booking and receive a <b>100% refund</b> if you cannot attend and can evidence one of the many reasons in our Terms &amp; Conditions, which you accept when you select a Refundable Booking.</div>
 
-
-                    <div className="covid-txt" bis_skin_checked="1">COVID-19 Infection and Isolation, <a onClick="window.open('https://www.refundable.me/covid/', 'info', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=600, screenX=50,screenY=50')" href="javascript: void(0);" className="text-link">see details</a></div>
+                    <div className="covid-txt" bis_skin_checked="1">COVID-19 Infection and Isolation, see details</div>
 
                     <div className="check-list" bis_skin_checked="1">
                         <img src="/assets/images/listing/shild.png" alt="shild" className="icon_image" />
@@ -365,7 +387,6 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
                                             Personal Item
                                             <div className="light" bis_skin_checked="1"><div className="visible-xs" bis_skin_checked="1"> <strong></strong></div>  </div>
 
-
                                         </div>
                                         <div className="green t-right2 baggage_status" bis_skin_checked="1"><img src="/assets/images/svg/check.svg" alt="" /> Included</div>
                                         <div className="t-right" bis_skin_checked="1"> <strong></strong></div>
@@ -377,7 +398,6 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
                                             <div className="baggageicons" bis_skin_checked="1"> <img src="/assets/images/svg/c-bag.svg" alt="" className="icons" /> </div>
                                             Carry-on Bag
                                             <div className="light" bis_skin_checked="1"><div className="visible-xs" bis_skin_checked="1"> <strong></strong></div>  </div>
-
 
                                         </div>
                                         <div className="green t-right2 baggage_status" bis_skin_checked="1"><img src="/assets/images/svg/check.svg" alt="" /> Included</div>
@@ -391,44 +411,32 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
                                             Checked Bag
                                             <div className="light" bis_skin_checked="1"><div className="visible-xs" bis_skin_checked="1"> <strong>15K</strong></div>  </div>
 
-
                                         </div>
                                         <div className="green t-right2 baggage_status" bis_skin_checked="1"><img src="/assets/images/svg/check.svg" alt="" /> Included</div>
                                         <div className="t-right" bis_skin_checked="1"> <strong>15K</strong></div>
                                     </div>
                                 </li>
                             </ul>
-
                             <p className="text" style={{ whiteSpace: "normal", marginBottom: 0, borderBottom: "none" }}>All prices are quoted in USD. Baggage allowance and fee amounts are not quaranteed and are subject to change by the airline. be sure to verify the actual fees with your airline(s) before you travel. </p>
                             <p className="text" style={{ whiteSpace: "normal", marginTop: 0 }}>
                                 Confirm bag fees, weight and size restrictions with
                                 <a href="http://www.airindia.in/checked-baggage-allowances.htm" rel="nofollow" target="_blank" className="ng-binding">{selectedFlight.itineraries[0].segments[0].airline.name}</a>&nbsp;<i className="fa fa-external-link" aria-hidden="true"></i>
                             </p>
-
-
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* <!-- Baggage Information End here--> */}
-            {/* <!-- Refundable End here --> */}
-
-
-
-
-
-
         </div>
+
         {/* <!--flight Leg End here --> */}
         <div className="popup-price-strip" bis_skin_checked="1">
             <div className="row" bis_skin_checked="1">
                 <div className="col-xs-12" bis_skin_checked="1">
                     <div className="price-section pull-right" bis_skin_checked="1">
-                        <button id="btnSelect_sss901" onClick={() => {
-                            setIsRefundable(false);
-                            handleCotnueViewDetail()
-                        }}>Continue</button>
+                        <button id="btnSelect_sss901" onClick={handleContinueClick}>
+                            {loading ? "Loading..." : "Continue"}
+                        </button>
                     </div>
                     <div className="price-section pull-left txt-left" bis_skin_checked="1">
                         <price style={{ cursor: "default" }}>
@@ -441,6 +449,7 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
                                 </span>
                                 <div className="event_nobooking" bis_skin_checked="1"> NO BOOKING  <span className="fee">FEE</span></div>
                             </div>
+
                             {/* <!-- Affirm--> */}
                             <div className="affirm_text affirm_flap" style={{ display: "block" }} bis_skin_checked="1">
                                 <spna className="afflop afffred_25400" amt="25400">or from <b>$23/mo</b></spna>
@@ -461,32 +470,27 @@ const FlightDetail = ({ selectedFlight, travellerDetails }) => {
                         </price>
                         {/* <div className="usp-tabs">
                                     <ul>
-                                        <li className="hidden-sm hidden-xs" style="cursor:pointer; border-right:0;"><a aria-hidden="true" onClick="window.open('/assets/baggage-fees-info?airline=AI','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=500,width=500,height=300');">Baggage Fees <i className="fa fa-suitcase"></i></a></li>
+                                        <li className="hidden-sm hidden-xs" style="cursor:pointer; border-right:0;"><a aria-hidden="truej" onClick="windjow.open('/assets/baggage-fees-info?airline=AI','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=500,width=500,height=300');">Baggage Fees <i className="fa fa-suitcase"></i></a></li>
                                         <li className="visible-xs visible-sm" style="cursor:pointer; border-right:0;"><a onClick="Filter.getflightbaggage('AI')" data-toggle="modal" data-target="#baggage-fees-popup">Baggage Fees <i className="fa fa-suitcase"></i></a></li>
                                     </ul>
                                 </div>
                                 */}
                     </div>
                 </div>
-
             </div>
         </div>
-        {/* <!--Price End--> */}
 
+        {/* <!--Price End--> */}
         <div className="overlay" bis_skin_checked="1">
             <div className="seat-pitch-details" bis_skin_checked="1">
                 <i className="fa fa-times-circle close-seat atpcolistclose" aria-hidden="true"></i>
                 <div className="seatinfo_slider" bis_skin_checked="1">
                     <div className="slider-3" id="atpcoslider" style={{ paddingLeft: "10px" }} bis_skin_checked="1">
-
                     </div>
                 </div>
             </div>
         </div>
-
-
     </>
 }
-
 
 export default FlightDetail;
