@@ -25,7 +25,6 @@ const Navbar = () => {
         setDropdownOpens(!dropdownOpens);
     };
 
-
     // Handle sign out
     const handleSignOut = () => {
         signOut(auth)
@@ -34,7 +33,7 @@ const Navbar = () => {
                 sessionStorage.removeItem("user");
                 setIsLoggedIn(false);
                 setUsername('');
-                // localStorage.removeItem("current-user");
+                localStorage.removeItem("current-user");
 
                 // Show success toast message
                 toast.success("You have successfully signed out.");
@@ -53,10 +52,10 @@ const Navbar = () => {
 
     useEffect(() => {
         // Retrieve the user authentication data from sessionStorage
-        const storedUser = sessionStorage.getItem('UserAuthentication');
-        if (storedUser) {
-            const parsedUser = JSON.parse(storedUser);
-            setUsername(parsedUser.displayName); // Set the username once on mount
+        const currentUser = localStorage.getItem('current-user');
+        if (currentUser) {
+            const user = JSON.parse(currentUser);
+            setUsername(user.displayName); // Set the username once on mount
         }
     }, [])
 
@@ -349,7 +348,7 @@ const Navbar = () => {
                                                 <li>
                                                     <a
                                                         href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('mybooking/[mybooking]')}
+                                                        onClick={() => handleNavigation('my-bookings/[mybooking]')}
                                                     >
                                                         My Booking
                                                     </a>
