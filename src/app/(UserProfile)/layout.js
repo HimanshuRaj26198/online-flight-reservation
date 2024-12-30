@@ -8,6 +8,8 @@ import "./_css/jquery-ui.css";
 import "./_css/bootstrap-min.css";
 import ClientLayout  from "./ClientLayout";
 
+//changed code
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
