@@ -83,6 +83,9 @@ const MyBooking = () => {
         }
     }, []);
 
+    console.log(currentUser, "Aise hi check kr rhen h");
+
+
     const fetchBookings = async (tabId) => {
         setLoading(true);
         setBookings([]);

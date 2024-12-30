@@ -47,7 +47,7 @@ const WriteToUs = () => {
 
             if (response.ok) {
                 setSuccessMessage("Your feedback has been submitted successfully.");
-                setFormData({ category: "", experience: "", feedback: "", });
+                setFormData({ category: "", experience: "", feedback: "", userEmail: "",});
             } else {
                 const data = await response.json();
                 setError(data.error || "Something went wrong. Please try again.");
@@ -206,7 +206,7 @@ const WriteToUs = () => {
                                             </div>
                                             <div className="col-sm-12">
                                                 <i className="fa fa-phone" />
-                                                <a href="tel:+1-248-274-7239">+1-888-267-5955</a>
+                                                <a href="tel:+1-888-267-5955">+1-888-267-5955</a>
                                             </div>
                                             <div className="col-sm-12">
                                                 <i className="fa fa-envelope-o" />

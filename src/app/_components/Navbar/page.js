@@ -25,6 +25,7 @@ const Navbar = () => {
         setDropdownOpens(!dropdownOpens);
     };
 
+
     // Handle sign out
     const handleSignOut = () => {
         signOut(auth)
@@ -63,6 +64,7 @@ const Navbar = () => {
     const hideLoginPopup = () => {
         setLoginPopupVisible(false);
     }
+
     const hideSignUp = () => {
         setSignUpVisible(false);
     }
@@ -81,7 +83,6 @@ const Navbar = () => {
         const unsubscribe = auth.onAuthStateChanged(setUser);
         return () => unsubscribe();
     }, []);
-
 
     useEffect(() => {
         if (document) {
@@ -208,9 +209,12 @@ const Navbar = () => {
     const closeMenu = () => {
         setMobMenuOpen(false);
     };
+
     const toggleMenu = () => {
         setMobMenuOpen(prev => !prev);
     };
+
+    const isHomePage = router.pathname === "/";
 
     return <>
         <div className="header-call-strip">
@@ -334,6 +338,7 @@ const Navbar = () => {
                                             <ul
                                                 className={`loginMenu ${dropdownOpens ? 'show' : ''}`} // Toggle visibility based on state
                                             >
+
                                                 <li className="visible-xs mobileusername">
                                                     <div className="welcomename-mobile">
                                                         <span className="displayusername">
@@ -344,7 +349,7 @@ const Navbar = () => {
                                                 <li>
                                                     <a
                                                         href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('mybooking/[my-booking]')}
+                                                        onClick={() => handleNavigation('mybooking/[mybooking]')}
                                                     >
                                                         My Booking
                                                     </a>
