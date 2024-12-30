@@ -17,6 +17,7 @@ const Navbar = () => {
     const [username, setUsername] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [dropdownOpens, setDropdownOpens] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
 
     const router = useRouter();
 
@@ -45,8 +46,9 @@ const Navbar = () => {
             });
     };
 
-    const handleNavigation = (path) => {
-        router.push(path);
+    const handleNavigation = (route) => {
+        router.push(`/${route}`);
+        // router.push(path);
         setDropdownOpens(false);
     };
 
@@ -55,6 +57,7 @@ const Navbar = () => {
         const currentUser = localStorage.getItem('current-user');
         if (currentUser) {
             const user = JSON.parse(currentUser);
+            setCurrentUser(user);
             setUsername(user.displayName); // Set the username once on mount
         }
     }, [])
@@ -327,7 +330,7 @@ const Navbar = () => {
                                                     {username}
                                                 </span>
                                                 <span className="displayusername hidden-xs">
-                                                    <span>Welcome</span> {username}
+                                                    <span>Welcome</span>  {username}
                                                 </span>
                                                 &nbsp;
                                                 <span className="fa fa-angle-down support-icon hidden-xs" />
@@ -337,45 +340,40 @@ const Navbar = () => {
                                             <ul
                                                 className={`loginMenu ${dropdownOpens ? 'show' : ''}`} // Toggle visibility based on state
                                             >
-
-                                                <li className="visible-xs mobileusername">
-                                                    <div className="welcomename-mobile">
-                                                        <span className="displayusername">
-                                                            <span>Welcome</span> {username}
-                                                        </span>
-                                                    </div>
-                                                </li>
                                                 <li>
                                                     <a
-                                                        href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('my-bookings/[mybooking]')}
+                                                        tihref="javascript:void(0);"
+                                                        onClick={() => handleNavigation(`mybooking/${currentUser.uid}`)}
                                                     >
                                                         My Booking
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a
-                                                        href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('myinformation/[my-information]')}
+                                                        tihref="javascript:void(0);"
+                                                        onClick={() => handleNavigation(`myinformation/${currentUser.uid}`)}
                                                     >
                                                         My Information
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('latestoffer/[latest-offer]')}>
+                                                        onClick={() => handleNavigation(`latestoffer/${currentUser.uid}`)}
+                                                        >
                                                         Latest Offer
                                                     </a>
                                                 </li>
                                                 <li id="profile_setting" style={{ display: 'block' }}>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('settings/[settings]')}>
+                                                        onClick={() => handleNavigation(`settings/${currentUser.uid}`)}
+                                                        >
                                                         Settings
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('writetous/[write-to-us]')}>
+                                                        onClick={() => handleNavigation(`writetous/${currentUser.uid}`)}
+                                                        >
                                                         Write To Us
                                                     </a>
                                                 </li>
@@ -394,98 +392,6 @@ const Navbar = () => {
                     {/* End profile menu*/}
                 </div>
             </nav>
-
-            {/* <div className="submenuLsit">
-                <div className="holder">
-                    <div className="block">
-                        <h4>Special Deals</h4>
-                        <ul>
-                            <li><a href="us/deals/deals-under-99.html">Deals Under $99</a></li>
-                            <li><a href="us/deals/deals-under-199.html">Deals Under $199</a></li>
-                            <li><a href="us/deals/cheap-domestic-flights.html">Cheap Domestic Flights</a></li>
-                            <li><a href="us/deals/international-flights-deals.html">International Flight Deals</a></li>
-                            <li><a href="us/deals/military-flight-deals.html">Military Flight Deals</a></li>
-                            <li><a href="us/deals/senior-travel-deals.html">Senior Travel Deals</a></li>
-                            <li><a href="us/deals/cheap-flights-for-students.html">Cheap Flights For Students</a></li>
-                            <li><a href="us/deals/business-class-flight-deals.html">Business Class Flight Deals</a></li>
-                            <li><a href="us/deals/first-class-deals.html">First Class Deals</a></li>
-                            <li><a href="us/deals/solo-travel-deals.html">Solo Travel Deals</a></li>
-                            <li><a href="us/deals/group-travel-deals.html">Group Travel Deals</a></li>
-                        </ul>
-                    </div>
-                    <div className="block bg_gray">
-                        <h4>Domestic Flights</h4>
-                        <ul>
-                            <li><a href="us/flights/cheap-flights-to-atlanta-atl-usa.html">Flights to Atlanta</a></li>
-                            <li><a href="us/flights/cheap-flights-to-charlotte-clt-usa.html">Flights to Charlotte</a>
-                            </li>
-                            <li><a href="us/flights/cheap-flights-to-chicago-chi-usa.html">Flights to Chicago</a></li>
-                            <li><a href="us/flights/cheap-flights-to-dallas-dfw-usa.html">Flights to Dallas</a></li>
-                            <li><a href="us/flights/cheap-flights-to-detroit-dtt-usa.html">Flights to Detroit</a></li>
-                            <li><a href="us/flights/cheap-flights-to-houston-hou-usa.html">Flights to Houston</a></li>
-                            <li><a href="us/flights/cheap-flights-to-miami-mia-usa.html">Flights to Miami</a></li>
-                            <li><a href="us/flights/cheap-flights-to-newyork-nyc-usa.html">Flights to New York</a></li>
-                            <li><a href="us/flights/cheap-flights-to-san-francisco-sfo-usa.html">Flights to San
-                                Francisco</a></li>
-                            <li><a href="us/flights/cheap-flights-to-seattle-sea-usa.html">Flights to Seattle</a></li>
-                            <li><a href="us/flights/cheap-flights-to-washington-was-usa.html">Flights to Washington</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="block">
-                        <h4>International Flights</h4>
-                        <ul>
-                            <li><a href="us/flights/cheap-flights-to-london-lon-united-kingdom.html">Flights to
-                                London</a></li>
-                            <li><a href="us/flights/cheap-flights-to-madrid-mad-spain.html">Flights to Madrid</a></li>
-                            <li><a href="us/flights/cheap-flights-to-manila-mnl-philippines.html">Flights to Manila</a>
-                            </li>
-                            <li><a href="us/flights/cheap-flights-to-sydney-syd-australia.html">Flights to Sydney</a>
-                            </li>
-                            <li><a href="us/flights/cheap-flights-to-tel-aviv-tlv-israel.html">Flights to Tel Aviv</a>
-                            </li>
-                            <li><a href="us/flights/cheap-flights-to-dublin-dub-ireland.html">Flights to Dublin</a></li>
-                            <li><a href="us/flights/cheap-flights-to-amsterdam-ams-netherlands.html">Flights to
-                                Amsterdam</a></li>
-                            <li><a href="us/flights/cheap-flights-to-frankfurt-fra-germany.html">Flights to
-                                Frankfurt</a></li>
-                            <li><a href="us/flights/cheap-flights-to-rome-rom-italy.html">Flights to Rome</a></li>
-                        </ul>
-                    </div>
-                    <div className="block bg_gray">
-                        <h4>US Airlines</h4>
-                        <ul>
-                            <li><a href="us/airlines/jetblue-flights-b6.html">JetBlue Airlines</a></li>
-                            <li><a href="us/airlines/united-airlines-ua.html">United Airlines</a></li>
-                            <li><a href="us/airlines/american-airlines-aa.html">American Airlines</a></li>
-                            <li><a href="us/airlines/spirit-airlines-nk.html">Spirit Airlines</a></li>
-                            <li><a href="us/airlines/frontier-airlines-f9.html">Frontier Airlines</a></li>
-                            <li><a href="us/airlines/alaska-airlines-as.html">Alaska Airlines</a></li>
-                            <li><a href="us/airlines/hawaiian-airlines-ha.html">Hawaiian Airlines</a></li>
-                            <li><a href="us/airlines/sun-country-airlines-sy.html">Sun Country Airlines</a></li>
-                            <li><a href="us/airlines/allegiant-air-flights-g4.html">Allegiant Airlines</a></li>
-                        </ul>
-                    </div>
-                    <div className="block">
-                        <h4>Foreign Airlines</h4>
-                        <ul>
-                            <li><a href="us/airlines/aeromexico-flights-am.html">Aeromexico Airlines</a></li>
-                            <li><a href="us/airlines/volaris-airlines-y4.html">Volaris Airlines</a></li>
-                            <li><a href="us/airlines/caribbean-airlines-bw.html">Caribbean Airlines</a></li>
-                            <li><a href="us/airlines/westjet-ws.html">Westjet Airlines</a></li>
-                            <li><a href="us/airlines/air-india-ai.html">Air India</a></li>
-                            <li><a href="us/airlines/emirates-flights-ek.html">Emirates Airlines</a></li>
-                            <li><a href="us/airlines/etihad-airways-ey.html">Etihad Airways</a></li>
-                            <li><a href="us/airlines/lufthansa-flights-lh.html">Lufthansa</a></li>
-                            <li><a href="us/airlines/turkish-airlines-tk.html">Turkish Airlines</a></li>
-                            <li><a href="us/airlines/all-nippon-airways-nh.html">All Nippon Airways</a></li>
-                            <li><a href="us/airlines/cathay-pacific-flights-cx.html">Cathay Pacific Airways</a></li>
-                            <li><a href="us/airlines/philippine-airlines-pr.html">Philippine Airlines</a></li>
-                            <li><a href="us/airlines/british-airways-ba.html">British Airways</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div> */}
 
         </header>
         {loginPopupVisible && !signUpVisible && <SignInComponent hideLoginPopup={hideLoginPopup} showSignUp={showSignUp} />}

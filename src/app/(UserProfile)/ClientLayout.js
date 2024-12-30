@@ -247,7 +247,7 @@ export default function ClientLayout({ children }) {
                                             </figure>
                                             <div className="name_col">
                                                 <div className="name">
-                                                    <span className="displayusername_2">Shubham</span>
+                                                    <span className="displayusername_2">{username}</span>
                                                     <div className="small">
                                                         Last login: <br className="d-none d-xl-block" />
                                                         <span className="LastLoginDate">
