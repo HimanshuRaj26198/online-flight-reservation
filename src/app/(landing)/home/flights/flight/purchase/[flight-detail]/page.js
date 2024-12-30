@@ -584,7 +584,7 @@ const PurchasePage = () => {
         };
 
         const upcomingFlight = {
-            selectedFlight, 
+            selectedFlight,
             presentDate: new Date().toISOString(),
         }
 
@@ -603,6 +603,7 @@ const PurchasePage = () => {
                 });
                 const result = await response.json();
                 if (result.success) {
+                    setLoading(false);
                     toast.success('Reservation Successful! Transaction ID: ' + result.transactionId);
 
                     await handleSMSSubmit(newTraveler, selectedFlight);
