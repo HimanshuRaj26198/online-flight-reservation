@@ -13,6 +13,8 @@ const WriteToUs = () => {
         userEmail: "",
     });
 
+    //changed
+
     // Load the current user from localStorage
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("current-user"));
