@@ -41,15 +41,16 @@ const SignInComponent = ({ hideLoginPopup, showSignUp }) => {
         console.log({ email, password });
     };
 
+
     const handleGoogleSignIn = async () => {
+        console.log("Called handleGoogleSignIN");
         try {
             const result = await signInWithPopup(auth, googleAuth);
             console.log(result, "ROLE BASED");
             const user = result.user;
             console.log("Google sign-in successful", user);
             sessionStorage.setItem('user', true);
-            sessionStorage.setItem('UserAuthentication', JSON.stringify(result));
-            // localStorage.setItem('current-user', JSON.stringify(result));
+            localStorage.setItem('current-user', JSON.stringify(result.user));
             hideLoginPopup();
             toast.success("Google sign-in successful");
         } catch (error) {
@@ -57,6 +58,7 @@ const SignInComponent = ({ hideLoginPopup, showSignUp }) => {
             toast.error("Google sign-in error");
         }
     };
+
     return <div id="someDivId" bis_skin_checked={1}>
         {/* login popup start */}
         <div className="login_popup" id="signIn" style={{}} bis_skin_checked={1}>
