@@ -58,7 +58,7 @@ export default function ClientLayout({ children }) {
 
     // Menu items array
     const menuItems = [
-        { id: "mytrip", label: "My Booking", href: "/my-bookings/akjsdjkn", className: "mytrip" },
+        { id: "mytrip", label: "My Booking", href: "/mybooking/akjsdjkn", className: "mytrip" },
         { id: "myinformation", label: "My Information", href: "/myinformation/slkdjlik", className: "myinformation" },
         { id: "offers", label: "Latest Offers", href: "/latestoffer/slkdjlika", className: "reward offers" },
         { id: "settings", label: "Settings", href: "/settings/slkdjliak", className: "setting settings" },
