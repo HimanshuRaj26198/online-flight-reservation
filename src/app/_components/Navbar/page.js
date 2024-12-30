@@ -54,11 +54,13 @@ const Navbar = () => {
 
     useEffect(() => {
         // Retrieve the user authentication data from sessionStorage
-        const currentUser = localStorage.getItem('current-user');
-        if (currentUser) {
-            const user = JSON.parse(currentUser);
-            setCurrentUser(user);
-            setUsername(user.displayName); // Set the username once on mount
+        if (typeof window !== "undefined") {
+            const currentUser = localStorage.getItem('current-user');
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                setCurrentUser(user);
+                setUsername(user.displayName); // Set the username once on mount
+            }
         }
     }, [])
 
@@ -359,21 +361,21 @@ const Navbar = () => {
                                                 <li>
                                                     <a href="javascript:void(0);"
                                                         onClick={() => handleNavigation(`latestoffer/${currentUser.uid}`)}
-                                                        >
+                                                    >
                                                         Latest Offer
                                                     </a>
                                                 </li>
                                                 <li id="profile_setting" style={{ display: 'block' }}>
                                                     <a href="javascript:void(0);"
                                                         onClick={() => handleNavigation(`settings/${currentUser.uid}`)}
-                                                        >
+                                                    >
                                                         Settings
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0);"
                                                         onClick={() => handleNavigation(`writetous/${currentUser.uid}`)}
-                                                        >
+                                                    >
                                                         Write To Us
                                                     </a>
                                                 </li>

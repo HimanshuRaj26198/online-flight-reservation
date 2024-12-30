@@ -21,12 +21,14 @@ export default function ClientLayout({ children }) {
     const [isSignUp, setIsSignUp] = useState(false);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("current-user"));
-        if (user) {
-            setCurrentUser(user);
-            setIsLoggedIn(true);
-        } else {
-            setIsLoggedIn(false);
+        if (typeof window !== "undefined") {
+            const user = JSON.parse(localStorage.getItem("current-user"));
+            if (user) {
+                setCurrentUser(user);
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
+            }
         }
 
     }, [])
@@ -40,14 +42,16 @@ export default function ClientLayout({ children }) {
     };
 
     // console.log(isSignUp,"Heeeee ek aise hi h");
-    
+
 
     useEffect(() => {
         // Retrieve the user authentication data from sessionStorage
-        const currentUser = localStorage.getItem('current-user');
-        if (currentUser) {
-            const user = JSON.parse(currentUser);
-            setUsername(user.displayName); // Set the username once on mount
+        if (typeof window !== "undefined") {
+            const currentUser = localStorage.getItem('current-user');
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                setUsername(user.displayName); // Set the username once on mount
+            }
         }
     }, [])
 
@@ -132,7 +136,7 @@ export default function ClientLayout({ children }) {
                                                 <li>
                                                     <a
                                                         href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('mybooking/[mybooking]')}
+                                                        onClick={() => handleNavigation(`mybooking/${currentUser.uid}`)}
                                                     >
                                                         My Booking
                                                     </a>
