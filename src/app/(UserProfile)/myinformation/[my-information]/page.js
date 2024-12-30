@@ -20,10 +20,8 @@ const MyInformation = () => {
     const [selectedTraveller, setSelectedTraveller] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
 
-    useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("current-user"));
-        setCurrentUser(user);
-    }, [])
+
+
 
     const [personalInfoData, setPersonalInfoData] = useState({
         firstname: "",
@@ -67,11 +65,17 @@ const MyInformation = () => {
     });
 
     useEffect(() => {
-        fetchPersonalInfo();
-        fetchContactInfo();
-        fetchBillingInfo();
-        fetchTravellerInfo();
-    }, []);
+        if (currentUser) {
+            fetchPersonalInfo();
+            fetchContactInfo();
+            fetchBillingInfo();
+            fetchTravellerInfo();
+        }
+
+    }, [currentUser]);
+
+
+
 
     const handleOpenModal = (traveller) => {
         setSelectedTraveller(traveller);
@@ -225,8 +229,6 @@ const MyInformation = () => {
     // Added all 
 
     const fetchPersonalInfo = async () => {
-        console.log("fetchPersonalInfo triggered");
-        console.log(currentUser, "currentUser");
         try {
             // Reference to the user's document in Firestore
             const userRef = doc(fireStore, "users", currentUser.uid);
@@ -341,6 +343,15 @@ const MyInformation = () => {
             setTravellers([]);
         }
     };
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("current-user"));
+        if (user) {
+            setCurrentUser(user);
+        }
+    }, [])
+
+    // console.log(currentUser, "Aise hi check kr rhe h");
 
     // Delete a traveler from Firestore
     const handleTravellerDelete = async (traveller) => {
