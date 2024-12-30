@@ -1,6 +1,7 @@
 import { Twilio } from 'twilio';
 
 export default async function handler(req, res) {
+    //deployed
     if (req.method === 'POST') {
         const { to, message } = req.body;
 
