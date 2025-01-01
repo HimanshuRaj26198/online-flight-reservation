@@ -1,5 +1,75 @@
+'use client'
+import { useState, useRef } from "react";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { doc, setDoc } from "firebase/firestore";
+import { auth, googleAuth, fireStore } from "../firebase/config";
+import { signInWithPopup, updateProfile } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const userSignUp = ({ onSignInClick }) => {
+
+    const firstNameRef = useRef("");
+    const lastNameRef = useRef("");
+    const emailRef = useRef("");
+    const phoneNumber = useRef("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (password !== confirmPassword) {
+            console.log("Passwords do not match");
+            toast.error("Passwords do not match")
+            return;
+        }
+
+        try {
+            // Create user with email and password
+            const userCredential = await createUserWithEmailAndPassword(emailRef.current.value, password);
+            const user = userCredential.user;
+
+            //setting display name
+            await updateProfile(user, {
+                displayName: `${firstNameRef.current.value} ${lastNameRef.current.value}`
+            });
+            // Store additional user information in Firestore
+            await setDoc(doc(fireStore, 'users', user.uid), {
+                firstName: firstNameRef.current.value,
+                lastName: lastNameRef.current.value,
+                email: user.email,
+                phone: phoneNumber.current.value,
+                createdAt: new Date(),
+            });
+         
+            sessionStorage.setItem('user', true);
+
+            // Optionally, you can add a success message or redirect
+            toast.success("Sign-up successful! Welcome to the Online Flight Reservation!");
+            // setSuccess(true);
+
+        } catch (e) {
+            console.log(e);
+            toast.error("Sign-up failed! Please try again.");
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleAuth);
+            const user = result.user;
+            console.log("Google sign-in successful", user);
+            toast.success("Google sign-in successful")
+            sessionStorage.setItem('user', JSON.stringify({ uid: user.uid, email: user.email }));
+        
+        } catch (error) {
+            console.error("Google sign-in error", error);
+            toast.error("Google sign-in error")
+        }
+    };
+
     return (
         <>
             <div className="login_popup" id="singUp" >
@@ -13,176 +83,198 @@ const userSignUp = ({ onSignInClick }) => {
                                 <li>Stay updated on our latest offers.</li>
                             </ul>
                         </div>
-                        <div className="right">
-                            <form
-                                name="newUserReg"
-                                id="newUserReg"
-                                data-gtm-form-interact-id={1}
-                            >
-                                <div
-                                    id="Messageloginsup"
-                                    style={{ display: "none" }}
-                                    className="alert alert-danger"
-                                >
-                                    Invalid credentials provided.Please try again.
-                                </div>
-                                <h3>Sign up</h3>
-                                <p>Use your social media information to connect with us</p>
-                                <a onclick="facebookLogin()" className="facebook" style={{}}>
-                                    Facebook
-                                </a>
-                                <a className="google_login" id="gsigup">
-                                    Google
-                                </a>
-                                <div className="form-row">
-                                    <input
-                                        id="user_firstname"
-                                        name="firstname"
-                                        type="text"
-                                        className="textbox textOnly"
-                                        placeholder="First name"
-                                    />
-                                    <i className="fa fa-user-o icon" />
-                                    <div className="error_text">First Name is required</div>
-                                </div>
-                                <div className="form-row">
-                                    <input
-                                        id="user_lastname"
-                                        name="lastname"
-                                        type="text"
-                                        className="textbox textOnly"
-                                        placeholder="Last name"
-                                    />
-                                    <i className="fa fa-user-o icon" />
-                                    <div className="error_text">Last Name is required</div>
-                                </div>
-                                <div className="form-row">
-                                    <input
-                                        id="user_uemail"
-                                        name="uemail"
-                                        type="text"
-                                        className="textbox valid"
-                                        placeholder="Email"
-                                        data-gtm-form-interact-field-id={2}
-                                    />
-                                    <i className="fa fa-envelope-o icon" />
-                                    <div className="error_text">Email is required</div>
-                                </div>
-                                <div className="form-row">
-                                    <input
-                                        id="user_password"
-                                        name="password"
-                                        maxLength={4}
-                                        minLength={4}
-                                        type="password"
-                                        className="textbox numbersOnly valid"
-                                        placeholder="Pin"
-                                        data-gtm-form-interact-field-id={3}
-                                    />
-                                    <i className="fa fa-lock icon" />
-                                    <div className="error_text">Pin is required</div>
-                                </div>
-                                <div className="form-row">
-                                    <span className="pin-text">
-                                        Enter your 4 digit numeric pin
-                                    </span>
-                                </div>
-                                <div className="form-row">
-                                    <input
-                                        id="user_repassword"
-                                        name="repassword"
-                                        maxLength={4}
-                                        minLength={4}
-                                        type="password"
-                                        className="textbox numbersOnly"
-                                        placeholder="Confirm Pin"
-                                    />
-                                    <i className="fa fa-lock icon" />
-                                    <div className="error_text">Confirm pin is required</div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="row">
-                                        <div className="col-xs-6 col-sm-6">
-                                            <input
-                                                type="text"
-                                                placeholder="Enter the code"
-                                                className="textbox"
-                                                style={{ padding: 10 }}
-                                                id="user_captchaCode"
-                                                name="captchaCode"
-                                                autoComplete="off"
-                                            />
-                                            <div className="error_text captchaerror">
-                                                Captcha is required
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-6 relative">
-                                            <span
-                                                style={{ display: "block" }}
-                                                className="refresh-btn"
-                                            >
-                                                <img
-                                                    style={{
-                                                        float: "right",
-                                                        width: 17,
-                                                        cursor: "pointer"
-                                                    }}
-                                                    src="/us/profile/profile/images/refresh.svg"
-                                                />
-                                            </span>
-                                            <div className="capcha">aIwsTp</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-row text">
-                                    {" "}
-                                    By signing up, I agree to Lookbyfare General{" "}
-                                    <a
-                                        className="text-green"
-                                        target="_blank"
-                                        href="https://www.lookbyfare.com/us/terms-conditions"
+                        <div className="right" bis_skin_checked={1}>
+                            <div
+                                id="Message"
+                                style={{ display: "none" }}
+                                className="alert alert-danger"
+                                bis_skin_checked={1}
+                            />
+                            <h3>Sign up</h3>
+                            {/* <a
+                                        onclick="facebookLogin();"
+                                        style={{ cursor: "pointer" }}
+                                        className="facebook"
                                     >
-                                        {" "}
+                                        Facebook
+                                    </a> */}
+                            <a className="google_login" id="gsigup" onClick={handleGoogleSignIn}>
+                                Google
+                            </a>
+
+                            <div className="form-row" bis_skin_checked={1}>
+                                <input
+                                    type="text"
+                                    id="FirstName"
+                                    name="FirstName"
+                                    className="textbox"
+                                    placeholder="First name"
+                                    autoComplete="off"
+                                    ref={firstNameRef}
+                                />
+                                <i className="fa fa-user-o icon" />
+                                <div
+                                    className="error_text"
+                                    bis_skin_checked={1}
+                                    style={{ display: "none" }}
+                                >
+                                    First Name is required
+                                </div>
+                            </div>
+                            <div className="form-row" bis_skin_checked={1}>
+                                <input
+                                    type="text"
+                                    className="textbox"
+                                    id="LastName"
+                                    name="LastName"
+                                    placeholder="Last name"
+                                    autoComplete="off"
+                                    ref={lastNameRef}
+                                />
+                                <i className="fa fa-user-o icon" />
+                                <div
+                                    className="error_text"
+                                    bis_skin_checked={1}
+                                    style={{ display: "none" }}
+                                >
+                                    Last Name is required
+                                </div>
+                            </div>
+                            <div className="form-row" bis_skin_checked={1}>
+                                <input
+                                    type="text"
+                                    className="textbox"
+                                    id="UserName"
+                                    name="UserName"
+                                    placeholder="Email"
+                                    autoComplete="off"
+                                    ref={emailRef}
+                                />
+                                <i className="fa fa-envelope-o icon" />
+                                <div
+                                    className="error_text"
+                                    bis_skin_checked={1}
+                                    style={{ display: "none" }}
+                                >
+                                    Email is required
+                                </div>
+                            </div>
+                            <div className="form-row" bis_skin_checked={1}>
+                                <input
+                                    type="tel"
+                                    className="textbox"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
+                                    placeholder="Phone Number"
+                                    autoComplete="off"
+                                    ref={phoneNumber}
+                                />
+                                <i className="fa-solid fa-phone icon" />
+                                <div
+                                    className="error_text"
+                                    bis_skin_checked={1}
+                                    style={{ display: "none" }}
+                                >
+                                    Email is required
+                                </div>
+                            </div>
+                            <div className="form-row" bis_skin_checked={1}>
+                                <input
+                                    type="password"
+                                    className="textbox"
+                                    id="Password"
+                                    name="Password"
+                                    autoComplete="off"
+                                    placeholder="Password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <i className="fa fa-lock icon" />
+                                <div
+                                    className="error_text"
+                                    bis_skin_checked={1}
+                                    style={{ display: "none" }}
+                                >
+                                    pin is required
+                                </div>
+                            </div>
+                            <div className="form-row" bis_skin_checked={1}>
+
+                                <span className="pin-text">
+                                    Enter your 4 digit numeric pin
+                                </span>
+                            </div>
+                            <div className="form-row" bis_skin_checked={1}>
+                                <input
+                                    type="password"
+                                    className="textbox"
+                                    id="ConfirmPassword"
+                                    name="ConfirmPassword"
+                                    autoComplete="off"
+                                    placeholder="Confirm Password"
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                />
+                                <i className="fa fa-lock icon" />
+                                <div
+                                    className="error_text"
+                                    bis_skin_checked={1}
+                                    style={{ display: "none" }}
+                                >
+                                    Confirm pin is required
+                                </div>
+                            </div>
+                            <div className="form-row" bis_skin_checked={1}>
+                                <div className="terms" bis_skin_checked={1}>
+                                    By signing up, I agree to OnlineFlightReservations General
+                                    <a
+                                        href="/us/terms-conditions"
+                                        target="_blank"
+                                        className="text-green"
+                                        bis_skin_checked={1}
+                                    >
                                         Terms and Conditions
-                                    </a>{" "}
-                                    and{" "}
+                                    </a>
+                                    and
                                     <a
                                         className="text-green"
+                                        href="/us/privacy-policy"
                                         target="_blank"
-                                        href="https://www.lookbyfare.com/us/privacy-policy"
+                                        bis_skin_checked={1}
                                     >
                                         Privacy Policy
                                     </a>
+                                    .
                                 </div>
-                                <div className="form-row">
-                                    <button
-                                        className="button"
-                                        onclick="submitSignUp()"
-                                        type="button"
+                            </div>
+                            <div className="form-row" bis_skin_checked={1}>
+                                <button
+                                    type="submit"
+                                    className="button pfsignup"
+                                    onClick={handleSubmit}
+                                >
+                                    Sign UP
+                                    <span
+                                        className="button_loding_div"
+                                        style={{ display: "none" }}
                                     >
-                                        Sign up{" "}
-                                        <span
-                                            className="button_loding_div"
-                                            style={{ display: "none" }}
-                                        >
-                                            <i className="button_loader blnk" />
-                                        </span>
-                                    </button>
-                                    <a
-                                        className="button grayBtn"
-                                        href="javascript:void(0);"
-                                        onClick={onSignInClick}
-                                    >
-                                        Back
-                                    </a>
-                                </div>
-                            </form>
+                                        <i className="button_loader" />
+                                        processing
+                                    </span>
+                                </button>
+                                <button
+                                    type="button"
+                                    className="button grayBtn"
+                                    onClick={onSignInClick}
+                                >
+                                    Back
+                                </button>
+                                <span style={{ margin: 15, color: "red" }} id="Message" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-        
+
         </>
     )
 }

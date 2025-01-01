@@ -6,6 +6,7 @@ import "./_css/style.css";
 import "./_css/inline.css";
 import "./_css/jquery-ui.css";
 import "./_css/bootstrap-min.css";
+// import "./_css/payment-style.css";
 import ClientLayout from "./ClientLayout";
 
 //changed code

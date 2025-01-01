@@ -41,6 +41,9 @@ export default function ClientLayout({ children }) {
         setIsSignUp(false);
     };
 
+    const handleLoginSuccess = () => {
+        setIsLoggedIn(true); // Update state to hide login page
+    };
     // console.log(isSignUp,"Heeeee ek aise hi h");
 
 
@@ -98,14 +101,16 @@ export default function ClientLayout({ children }) {
     };
 
     const toggleDropdowns = () => {
+        console.log("hiiiiii");
+
         setDropdownOpens(!dropdownOpens);
     };
 
-    const handleNavigation = (path) => {
-        router.push(path);
+    const handleNavigation = (route) => {
+        // router.push(path);
+        router.push(`/${route}`);
         setDropdownOpen(false);
     };
-
 
     return (
         <>
@@ -118,20 +123,20 @@ export default function ClientLayout({ children }) {
                             <div className="topmenuBox">
                                 <ul>
                                     {isLoggedIn ? (
-                                        <li className={`dropdown loginDropdown loginpg ${dropdownOpen ? "open" : ""}`}>
+                                        <li className={`dropdown loginDropdown loginpg ${dropdownOpens ? "open" : ""}`}>
                                             <a
                                                 className="login"
                                                 data-toggle="dropdown"
                                                 href="javascript:void(0);"
                                                 // aria-expanded="true"
-                                                aria-expanded={dropdownOpen}
-                                                onClick={toggleDropdown}
+                                                aria-expanded={dropdownOpens}
+                                                onClick={toggleDropdowns}
                                             >
                                                 <span className="displayusername">Welcome {username}</span>{" "}
                                                 <span className="fa fa-angle-down support-icon" />
                                             </a>
                                             <ul
-                                                className={`loginMenu ${dropdownOpen ? 'show' : ''}`} // Toggle visibility based on state
+                                                className={`loginMenu ${dropdownOpens ? 'show' : ''}`} // Toggle visibility based on state
                                             >
                                                 <li>
                                                     <a
@@ -144,26 +149,26 @@ export default function ClientLayout({ children }) {
                                                 <li>
                                                     <a
                                                         href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('myinformation/[my-information]')}
+                                                        onClick={() => handleNavigation(`myinformation/${currentUser.uid}`)}
                                                     >
                                                         My Information
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('latestoffer/[latest-offer]')}>
+                                                        onClick={() => handleNavigation(`latestoffer/${currentUser.uid}`)}>
                                                         Latest Offer
                                                     </a>
                                                 </li>
                                                 <li id="profile_setting" style={{ display: 'block' }}>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('settings/[settings]')}>
+                                                        onClick={() => handleNavigation(`settings/${currentUser.uid}`)}>
                                                         Settings
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0);"
-                                                        onClick={() => handleNavigation('writetous/[write-to-us]')}>
+                                                        onClick={() => handleNavigation(`writetous/${currentUser.uid}`)}>
                                                         Write To Us
                                                     </a>
                                                 </li>
@@ -187,10 +192,10 @@ export default function ClientLayout({ children }) {
                                             </a>
                                             <ul className={`dropdown-menu withoutlogin ${dropdownOpen ? 'show' : ''}`}>
                                                 <li>
-                                                    <a href="#" onSignInClick={showSignIn}>Sign in</a>
+                                                    <a href="#" onClick={showSignIn}>Sign in</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" onSignUpClick={showSignUp} >Create an Account</a>
+                                                    <a href="#" onClick={showSignUp} >Create an Account</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -300,7 +305,7 @@ export default function ClientLayout({ children }) {
                     {isSignUp ? (
                         <UserSignUpComponent onSignInClick={showSignIn} />
                     ) : (
-                        <UserSignInComponent onSignUpClick={showSignUp} />
+                        <UserSignInComponent onSignUpClick={showSignUp} onLoginSuccess={handleLoginSuccess} />
                     )}
                 </>
             )}

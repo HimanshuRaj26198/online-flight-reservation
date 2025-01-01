@@ -577,7 +577,7 @@
 
 .loginBox .google_login:before {
     content: "";
-    background: url(../../images/user-profile/google-logo.png) center center no-repeat;
+    background: url(/assets/images/googled6c3.png) center center no-repeat;
     border-right: 1px solid #dc3545;
 }
 

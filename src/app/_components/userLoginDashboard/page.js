@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth, googleAuth } from "../firebase/config";
 import { signInWithPopup } from "firebase/auth";
 import { toast } from "react-toastify";
 
-const userDashboard = ({ onSignUpClick }) => {
+const userDashboard = ({ onSignUpClick, onLoginSuccess }) => {
 
     const emailRef = useRef("");
     const passwordRef = useRef("");
@@ -29,8 +29,11 @@ const userDashboard = ({ onSignUpClick }) => {
                 console.log(res, "ROLE BASED");
                 sessionStorage.setItem('user', true);
                 sessionStorage.setItem('UserAuthentication', JSON.stringify(res));
-                hideLoginPopup();
-                // toast.success("Successfully logged in!");
+                const isSuccessful = true; // Replace with actual success condition
+                if (isSuccessful) {
+                    onLoginSuccess(); // Notify parent component of successful login
+                }
+                toast.success("Successfully logged in!");
             } else {
                 // Handle unexpected response from the server
                 throw new Error("Unexpected server response.");
@@ -50,8 +53,11 @@ const userDashboard = ({ onSignUpClick }) => {
             const user = result.user;
             console.log("Google sign-in successful", user);
             sessionStorage.setItem('user', true);
-            sessionStorage.setItem('UserAuthentication', JSON.stringify(result));
-            hideLoginPopup();
+            localStorage.setItem('current-user', JSON.stringify(user));
+            const isSuccessful = true; // Replace with actual success condition
+            if (isSuccessful) {
+                onLoginSuccess(); // Notify parent component of successful login
+            }
             toast.success("Google sign-in successful");
         } catch (error) {
             console.error("Google sign-in error", error);
@@ -59,6 +65,13 @@ const userDashboard = ({ onSignUpClick }) => {
         }
     };
 
+    const handleLogin = async () => {
+        // Your existing login logic
+        const isSuccessful = true; // Replace with actual success condition
+        if (isSuccessful) {
+            onLoginSuccess(); // Notify parent component of successful login
+        }
+    };
     return (
         <>
             <div className="container">
