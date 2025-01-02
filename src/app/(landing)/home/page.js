@@ -8,6 +8,10 @@ import TopDestinationCard from "@/app/_components/TopDestinationCard/page";
 import TopDestinationsArr from "@/assets/top_destination.json";
 import TopFlightDestinationArr from "@/assets/top_flight_destination.json"
 import TopFlightDestinationCard from "@/app/_components/TopFlightDestinationCard/page";
+import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { fireStore } from "@/app/_components/firebase/config"
+import { toast } from "react-toastify";
 
 const HomePage = () => {
 
@@ -69,6 +73,44 @@ const HomePage = () => {
         ],
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openPopup = () => setIsOpen(true);
+    const closePopup = () => setIsOpen(false);
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+    });
+    const [message, setMessage] = useState("");
+    const [success, setSuccess] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async () => {
+        if (!formData.name || !formData.email || !formData.phone) {
+            setMessage("All fields are required.");
+            alert("All fields are required");
+            return;
+        }
+
+        try {
+            await addDoc(collection(fireStore, "subscriptions"), formData);
+            setMessage("");
+            setSuccess(true);
+            toast.success("Your email ID has been added successfully.")
+            setFormData({ name: "", email: "", phone: "" });
+        } catch (error) {
+            console.error("Error saving subscription: ", error);
+            toast.error("Error saving subscription: ", error);
+            setMessage("An error occurred. Please try again later.");
+        }
+    };
+
     return (
         <>
             <div className="body-content">
@@ -80,7 +122,7 @@ const HomePage = () => {
                     <div className="logo-center visible-xs">
                         <img src="/assets/images/home/privacy-icon-xs.png" />
                     </div>
-                    <h3>Your data is safe with TourTravelHub.com</h3>
+                    <h3>Your data is safe with OnlineFlightReservation.com</h3>
                     <ul>
                         <li>
                             <span className="number">1.</span>We restrict sharing of your information.
@@ -1583,41 +1625,190 @@ const HomePage = () => {
                             <ul>
                                 <li>
                                     <img
-                                        src="https://www.lookbyfare.com/us/images/footer/subscribe/subscribe_icon1.svg?v=1"
+                                        src="/assets/images/subscribe_icon1.svg?v=1"
                                         alt="Exclusive Fares"
                                     />
                                     <p>Exclusive Fares</p>
                                 </li>
                                 <li>
                                     <img
-                                        src="https://www.lookbyfare.com/us/images/footer/subscribe/subscribe_icon2.svg?v=1"
+                                        src="/assets/images/subscribe_icon2.svg?v=1"
                                         alt="Latest Sales & Discounts"
                                     />
                                     <p>Latest Sales & Discounts</p>
                                 </li>
                                 <li>
                                     <img
-                                        src="https://www.lookbyfare.com/us/images/footer/subscribe/subscribe_icon3.svg?v=1"
+                                        src="/assets/images/subscribe_icon3.svg?v=1"
                                         alt="Members only Deals"
                                     />
                                     <p>Members only Deals</p>
                                 </li>
                                 <li>
                                     <img
-                                        src="https://www.lookbyfare.com/us/images/footer/subscribe/subscribe_icon4.svg?v=1"
+                                        src="/assets/images/subscribe_icon4.svg?v=1"
                                         alt="Special Promo Codes & more"
                                     />
                                     <p>Special Promo Codes & more</p>
                                 </li>
                             </ul>
-                            <a href="javascript:void(0);" className="subscribehomeBtn">
+                            <a href="javascript:void(0);" className="subscribehomeBtn" onClick={openPopup}>
                                 Subscribe Now
                             </a>
+
+                            {isOpen && !success ? (
+                                <div
+                                    style={{
+                                        position: "fixed",
+                                        top: 0,
+                                        left: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        zIndex: 1000,
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            background: "white",
+                                            padding: "20px",
+                                            borderRadius: "8px",
+                                            width: "90%",
+                                            maxWidth: "400px",
+                                            textAlign: "center",
+                                            position: "relative",
+                                            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                                        }}
+                                    >
+                                        {/* Close Button */}
+                                        <span
+                                            style={{
+                                                position: "absolute",
+                                                top: "10px",
+                                                right: "10px",
+                                                fontSize: "20px",
+                                                cursor: "pointer",
+                                                color: "#aaa",
+                                            }}
+                                            onClick={closePopup}
+                                        >
+                                            &times;
+                                        </span>
+
+                                        <h2 style={{ marginTop: 0, fontSize: "20px", color: "#333" }}>
+                                            Subscribe to our Newsletter
+                                        </h2>
+
+                                        {/* Form */}
+                                        {/* Inputs */}
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="Enter your name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            required
+                                            style={{
+                                                width: "100%",
+                                                padding: "10px",
+                                                color: "black",
+                                                marginBottom: "10px",
+                                                border: "1px solid #ddd",
+                                                borderRadius: "5px",
+                                                fontSize: "14px"
+                                            }}
+                                        />
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            placeholder="Enter your email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                            style={{
+                                                width: "100%",
+                                                padding: "10px",
+                                                color: "black",
+                                                marginBottom: "10px",
+                                                border: "1px solid #ddd",
+                                                borderRadius: "5px",
+                                                fontSize: "14px"
+                                            }}
+                                        />
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            placeholder="Enter your mobile"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            required
+                                            style={{
+                                                width: "100%",
+                                                padding: "10px",
+                                                color: "black",
+                                                marginBottom: "10px",
+                                                border: "1px solid #ddd",
+                                                borderRadius: "5px",
+                                                fontSize: "14px"
+                                            }}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={handleSubmit}
+                                            style={{
+                                                width: "100%",
+                                                padding: "10px",
+                                                backgroundColor: "#ff7f00",
+                                                color: "white",
+                                                border: "none",
+                                                cursor: "pointer",
+                                                borderRadius: "5px",
+                                                fontSize: "16px"
+                                            }}
+                                        >
+                                            Submit
+                                        </button>
+                                        {/* Displaying error or success message */}
+                                        {message && (
+                                            <div
+                                                style={{
+                                                    marginTop: "10px",
+                                                    color: success ? "green" : "red",
+                                                    fontWeight: "bold"
+                                                }}
+                                            >
+                                                {message}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            ) : success ? (
+                                <div className="sucessfullMsg">
+                                    <div className="thanks">
+                                        <img
+                                            src="/assets/images/sucess-full-image.svg"
+                                            alt="Success"
+                                            className="pull-left"
+                                        />
+                                        Thanks
+                                    </div>
+                                    <div className="msg">
+                                        Your email ID has been added successfully.
+                                    </div>
+                                    <small className="text">
+                                        We will notify you for our Best Deals and offers.
+                                    </small>
+                                </div>
+                            ) : null}
+
                         </div>
                     </div>
                 </div>
 
-                <div className="hotel__deals">
+                {/* <div className="hotel__deals">
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-12">
@@ -1692,11 +1883,11 @@ const HomePage = () => {
                                         </div>
                                     </div>
                                 </Slider>
-                                {/* <div className="dealCntr dealSlider"></div> */}
+                              
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="newserviceBox">
                     <div className="container">
@@ -1738,6 +1929,7 @@ const HomePage = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className="clearfix"></div>
                 <br />
                 <div
@@ -1861,11 +2053,11 @@ const HomePage = () => {
                                                 I was having problems booking with JetBlue Airlines since
                                                 last night in the their website. So I decided to search on
                                                 the web for the JetBlue customer service for support.
-                                                Somehow I got in contact with a TourTravelHub representative
+                                                Somehow I got in contact with a OnlineFlightReservation representative
                                                 named Marshall, the process when well. Great pronunciation
                                                 in our communication. After the fair payment for the
                                                 flights, I received a booking ID number with all the flight
-                                                itinerary. And this when I noticed it was from TourTravelHub
+                                                itinerary. And this when I noticed it was from OnlineFlightReservation
                                                 and not JetBlue I got nervous and started to reach out to my
                                                 bank and JetBlue to verify my flights, as for my first email
                                                 response didn’t show the confirmation code. Anyway Marshall
@@ -1874,16 +2066,16 @@ const HomePage = () => {
                                                 process the booking of the flights. JetBlue and the bank
                                                 both acknowledged the transaction, I began to feel better. A
                                                 few minutes later I received my second email from
-                                                TourTravelHub with more information like the flight
+                                                OnlineFlightReservation with more information like the flight
                                                 confirmation code. Shortly after I received a call from
-                                                TourTravelHub, a gentleman named Jonathan. This
+                                                OnlineFlightReservation, a gentleman named Jonathan. This
                                                 representative also cleared the air with our sitting
                                                 arrangement as it wasn’t showing up on our itinerary. I will
                                                 be traveling with my elderly mother, so i want to make sure
                                                 she’s comfortable in her travels. So I paid a bit extra to
                                                 seat in the front. Just wanted to share my thoughts, at
                                                 first I was nervous dealing with a third party, but I can
-                                                actually say I was taken care of by TourTravelHub
+                                                actually say I was taken care of by OnlineFlightReservation
                                                 representatives. What an excellent team you have, BRAVO ZULU
                                                 to Marshall and Jonathan. Great Job. Thank you both!!! for
                                                 making my life easier.
@@ -2075,14 +2267,13 @@ const HomePage = () => {
                     <div className="container">
                         <br />
                         <p>
-                            A one-stop site for all your travel needs, TourTravelHub is an OTA
+                            A one-stop site for all your travel needs, OnlineFlightReservation is an OTA
                             started by travelers and for the travelers, with an aim to make travel
                             booking convenient and budget-friendly. We have a team of travel
                             experts working round the clock with our partner airlines and travel
                             service providers so we can handpick the cheapest air tickets,
-                            discount hotel rooms, car rentals and packages to destinations across
-                            the globe. Whether you are planning a vacation or a business trip,
-                            book cheap air tickets with TourTravelHub and save big on your ticket
+                            and packages to destinations across the globe. Whether you are planning a vacation or a business trip,
+                            book cheap air tickets with OnlineFlightReservation and save big on your ticket
                             reservation.
                         </p>
                         <p>

@@ -13,11 +13,11 @@
             },
             "image": "https://cmsrepository.com/static/flights/flight/airlinelogo-png/ua.png",
             "description": "Flight from New York City to Los Angeles.",
-            "dateRange": "Dec 08 - Dec 12",
-            "depDate": "2024-12-08",
-            "returnDate": "2024-12-12",
+            "dateRange": "Jan 12 - Jan 20",
+            "depDate": "2025-01-12",
+            "returnDate": "2025-01-20",
             "amount": "$550",
-            "travelerType": "Adult" 
+            "travelerType": "Adult"
         }
     ],
     [
@@ -34,11 +34,11 @@
             },
             "image": "https://cmsrepository.com/static/flights/flight/airlinelogo-png/lf.png",
             "description": "Flight from Los Angeles to Chicago.",
-            "dateRange": "Nov 3 - Nov 4",
-            "depDate": "2024-11-03",
-            "returnDate": "2024-11-04",
+            "dateRange": "Jan 05 - Jan 06",
+            "depDate": "2025-01-05",
+            "returnDate": "2025-01-06",
             "amount": "$480",
-            "travelerType": "Child" 
+            "travelerType": "Child"
         }
     ],
     [
@@ -55,11 +55,11 @@
             },
             "image": "https://cmsrepository.com/static/flights/flight/airlinelogo-png/ba.png",
             "description": "Flight from Chicago to Las Vegas.",
-            "dateRange": "Nov 5 - Nov 6",
-            "depDate": "2024-11-05",
-            "returnDate": "2024-11-06",
+            "dateRange": "Jan 15 - Jan 16",
+            "depDate": "2025-01-15",
+            "returnDate": "2025-01-16",
             "amount": "$420",
-            "travelerType": "Adult" 
+            "travelerType": "Adult"
         }
     ],
     [
@@ -76,11 +76,11 @@
             },
             "image": "https://cmsrepository.com/static/flights/flight/airlinelogo-png/sk.png",
             "description": "Flight from Las Vegas to Miami.",
-            "dateRange": "Nov 7 - Nov 8",
-            "depDate": "2024-11-07",
-            "returnDate": "2024-11-08",
+            "dateRange": "Jan 18 - Jan 19",
+            "depDate": "2025-01-18",
+            "returnDate": "2025-01-19",
             "amount": "$380",
-            "travelerType": "Infant" 
+            "travelerType": "Infant"
         }
     ],
     [
@@ -97,11 +97,11 @@
             },
             "image": "https://cmsrepository.com/static/flights/flight/airlinelogo-png/hr.png",
             "description": "Flight from Miami to Orlando.",
-            "dateRange": "Nov 9 - Nov 10",
-            "depDate": "2024-11-09",
-            "returnDate": "2024-11-10",
+            "dateRange": "Jan 22 - Jan 23",
+            "depDate": "2025-01-22",
+            "returnDate": "2025-01-23",
             "amount": "$450",
-            "travelerType": "Adult" 
+            "travelerType": "Adult"
         }
     ],
     [
@@ -118,11 +118,11 @@
             },
             "image": "https://cmsrepository.com/static/flights/flight/airlinelogo-png/ta.png",
             "description": "Flight from Orlando to San Francisco.",
-            "dateRange": "Nov 11 - Nov 12",
-            "depDate": "2024-11-11",
-            "returnDate": "2024-11-12",
+            "dateRange": "Jan 10 - Jan 11",
+            "depDate": "2025-01-10",
+            "returnDate": "2025-01-11",
             "amount": "$400",
-            "travelerType": "Child" 
+            "travelerType": "Child"
         }
     ],
     [
@@ -139,11 +139,11 @@
             },
             "image": "https://cmsrepository.com/static/flights/flight/airlinelogo-png/y4.png",
             "description": "Flight from San Francisco to Seattle.",
-            "dateRange": "Nov 13 - Nov 14",
-            "depDate": "2024-11-13",
-            "returnDate": "2024-11-14",
+            "dateRange": "Jan 25 - Jan 26",
+            "depDate": "2025-01-25",
+            "returnDate": "2025-01-26",
             "amount": "$600",
-            "travelerType": "Adult" 
+            "travelerType": "Adult"
         }
     ],
     [
@@ -160,11 +160,11 @@
             },
             "image": "https://cmsrepository.com/static/flights/flight/airlinelogo-png/as.png",
             "description": "Flight from Seattle to New York City.",
-            "dateRange": "Nov 15 - Nov 16",
-            "depDate": "2024-11-15",
-            "returnDate": "2024-11-16",
+            "dateRange": "Jan 30 - Jan 31",
+            "depDate": "2025-01-30",
+            "returnDate": "2025-01-31",
             "amount": "$520",
-            "travelerType": "Adult" 
+            "travelerType": "Adult"
         }
     ]
 ]

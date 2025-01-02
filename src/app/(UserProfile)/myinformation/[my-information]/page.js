@@ -1090,7 +1090,6 @@ const MyInformation = () => {
                     {/* travelers tab Start here */}
                     {activeTab === "tab4" && (
                         <>
-
                             <div
                                 className="tabContent"
                                 id="tab4C"
@@ -1099,6 +1098,9 @@ const MyInformation = () => {
                                 <div className="formBox">
                                     <div className="row">
                                         <div className="col-sm-12 title">
+                                            
+                                            <h2>My Traveler's</h2>
+                                            <div>You can add your traveler details</div>
                                             <button
                                                 className="button pull-right travller"
                                                 onClick={handleOpenModal}
@@ -1106,8 +1108,6 @@ const MyInformation = () => {
                                             >
                                                 ADD TRAVELER
                                             </button>
-                                            <h2>My Traveler's</h2>
-                                            <div>You can add your traveler details</div>
 
                                         </div>
                                     </div>
@@ -1143,8 +1143,6 @@ const MyInformation = () => {
                                                 </div>
                                             </div>
                                         ))}
-
-
                                 </div>
                                 {/*  \ Add traveller End here / */}
                             </div>
@@ -1323,7 +1321,6 @@ const MyInformation = () => {
                                     </div>
                                 </div>
                             )}
-
 
                         </>
 

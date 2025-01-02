@@ -1,6 +1,71 @@
-const { default: Script } = require("next/script");
+'use client';
+
+import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { fireStore } from "@/app/_components/firebase/config";
+import { toast } from "react-toastify";
 
 const Footer = () => {
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+    });
+
+    const [message, setMessage] = useState("");
+    const [success, setSuccess] = useState(false);
+
+    // Handle input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    // Handle form submission
+    const handleSubmit = async () => {
+        // Trim and validate form data
+        const trimmedData = {
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim(),
+        };
+
+        // Log form data
+        console.log("Form Data being submitted:", trimmedData);
+
+        // Check for empty fields
+        if (!trimmedData.name || !trimmedData.email || !trimmedData.phone) {
+            setMessage("All fields are required.");
+            alert("All fields are required");
+            return;
+        }
+
+        try {
+            // Add subscription to Firestore
+            await addDoc(collection(fireStore, "subscriptions"), trimmedData);
+
+            // Clear message and set success state
+            setMessage("");
+            setSuccess(true);
+            toast.success("Your email ID has been added successfully.");
+
+            // Reset form data
+            setFormData({ name: "", email: "", phone: "" });
+        } catch (error) {
+            console.error("Error saving subscription: ", error);
+            toast.error("An error occurred while saving your subscription.");
+            setMessage("An error occurred. Please try again later.");
+        }
+    };
+
+
+    const closePopup = () => {
+        setSuccess(false);
+    };
+
+
+
     return <>
         <footer style={{ backgroundColor: "#E52B50" }} className="footer_block">
             <div>
@@ -18,16 +83,17 @@ const Footer = () => {
                                                 Policy</a></li>
                                             <li><a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>
                                             </li>
-                                            <li><a href="/california-privacy-notice">Your California Privacy
+                                            <li><a href="/california-privacy-notice" title="Your California Privacy" >Your California Privacy
                                                 Rights</a></li>
-                                            <li><a href="/taxes-fee#post-ticketing">Post-Ticketing Fees</a></li>
+                                            <li><a href="/taxes-fee#post-ticketing" title="Post-Ticketing Fees">Post-Ticketing Fees</a></li>
                                             <li><a href="/taxes-fee" title="Taxes &amp; Fees">Taxes &amp; Fees</a>
                                             </li>
                                             <li><a href="/baggage-fees" title="Baggage Fees">Baggage Fees</a></li>
-                                            <li><a href="/web-checkin">Online Check-In</a>
+                                            <li><a href="/web-checkin" title="web-checkin">Online Check-In</a>
                                             </li>
                                             <li><a href="/terms-conditions" title="Terms and Conditions">Terms and
                                                 Conditions</a></li>
+                                            <li><a href="/travelBlog" title="Travel Blog">Travel Blog</a></li>
                                             {/* <li><a href="/assets/site-map.html" title="Sitemap">Sitemap</a></li> */}
                                         </ul>
                                     </div>
@@ -97,51 +163,139 @@ const Footer = () => {
                                                 <div className="row">
                                                     <div className="col-xs-12">
                                                         <div className="form_row">
-                                                            <input type="text" placeholder="Name" id="subscribename"
-                                                                className="subscribe-input alphanumeric" autoComplete="off" />
+                                                            <input
+                                                                type="text"
+                                                                placeholder="Name"
+                                                                id="subscribename"
+                                                                className="subscribe-input alphanumeric"
+                                                                autoComplete="off"
+                                                                name="name"
+                                                                value={formData.name}
+                                                                onChange={handleChange}
+                                                            />
                                                             <i className="icon fa fa-user-o"></i>
                                                         </div>
                                                     </div>
                                                     <div className="col-xs-12">
                                                         <div className="form_row">
-                                                            <input type="text" placeholder="E-mail address"
-                                                                className="subscribe-input" id="subscriptionuser"
-                                                                autoComplete="off" />
+                                                            <input
+                                                                type="email"
+                                                                placeholder="E-mail address"
+                                                                className="subscribe-input"
+                                                                id="subscriptionuser"
+                                                                autoComplete="off"
+                                                                name="email"
+                                                                value={formData.email}
+                                                                onChange={handleChange}
+                                                            />
                                                             <i className="icon fa fa-envelope-o"></i>
                                                         </div>
                                                     </div>
                                                     <div className="col-xs-12">
                                                         <div className="form_row newcountrylist">
-                                                            <input type="tel" id="mobile-number"
-                                                                className="inputform" readOnly="readonly" value="+1" />
-                                                            <input type="tel" id="mobile-num" placeholder="Mobile number"
-                                                                maxLength="12" minLength="10"
-                                                                className="inputform phone_number numeric" autoComplete="off" />
+                                                            <input
+                                                                type="tel"
+                                                                id="mobile-number"
+                                                                className="inputform"
+                                                                readOnly="readonly"
+                                                                value="+1"
+                                                            />
+                                                            <input
+                                                                type="tel"
+                                                                id="mobile-num"
+                                                                placeholder="Mobile number"
+                                                                maxLength="12"
+                                                                minLength="10"
+                                                                className="inputform phone_number numeric"
+                                                                autoComplete="off"
+                                                                name="phone"
+                                                                value={formData.phone}
+                                                                onChange={handleChange}
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div className="col-xs-12 terms inputSet">
-                                                        <div className="terms"> I would like to receive SMS and email from
-                                                            onlineflightreservation.com with the latest offers and promotions. I have
-                                                            read and agree to the <a target="_blank"
-                                                                href="/terms-conditions">Terms and Conditions</a> and
-                                                            <a href="/privacy-policy" target="_blank">privacy policy
+                                                        <div className="terms">
+                                                            I would like to receive SMS and email from onlineflightreservation.com with the latest offers and promotions. I have read and agree to the{" "}
+                                                            <a target="_blank" href="/terms-conditions">Terms and Conditions</a> and{" "}
+                                                            <a href="/privacy-policy" target="_blank">
+                                                                privacy policy
                                                             </a>.
                                                         </div>
                                                     </div>
                                                     <div className="col-xs-12">
-                                                        <button type="button" className="subscribe-submit">SUBSCRIBE</button>
-                                                        <span id="message" style={{ color: "red" }}></span>
+                                                        <button type="button" className="subscribe-submit" onClick={handleSubmit}>
+                                                            SUBSCRIBE
+                                                        </button>
+                                                        <span id="message" style={{ color: "red" }}>
+                                                            {message}
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div className="clearfix"></div>
                                             </div>
-                                            <div className="sucessfullMsg" style={{ display: "none" }}>
-                                                <div className="thanks"><img src="/assets/images/sucess-full-image.svg" alt=""
-                                                    className="pull-left" /> Thanks</div>
-                                                <div className="msg">Your email ID <br /> <span id="email2"></span> <br /><span
-                                                    id="submitSuccess2"> has been added successfully</span></div>
-                                                <small className="text">We will notify you for our Best Deals and offers</small>
-                                            </div>
+                                            {/* Success Popup Message */}
+                                            {success && (
+                                                <div
+                                                    style={{
+                                                        position: "fixed",
+                                                        top: 0,
+                                                        left: 0,
+                                                        width: "100%",
+                                                        height: "100%",
+                                                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                        display: "flex",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                        zIndex: 1000,
+                                                    }}
+                                                >
+                                                    <div
+                                                        style={{
+                                                            background: "white",
+                                                            padding: "20px",
+                                                            borderRadius: "8px",
+                                                            width: "90%",
+                                                            maxWidth: "400px",
+                                                            textAlign: "center",
+                                                            position: "relative",
+                                                            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                                                        }}
+                                                    >
+                                                        {/* Close Button */}
+                                                        <span
+                                                            style={{
+                                                                position: "absolute",
+                                                                top: "10px",
+                                                                right: "10px",
+                                                                fontSize: "20px",
+                                                                cursor: "pointer",
+                                                                color: "#aaa",
+                                                            }}
+                                                            onClick={closePopup}
+                                                        >
+                                                            &times;
+                                                        </span>
+
+                                                        {/* Success Message */}
+                                                        <div className="thanks">
+                                                            <img
+                                                                src="/assets/images/sucess-full-image.svg"
+                                                                alt="Success"
+                                                                className="pull-left"
+                                                            />
+                                                            Thanks
+                                                        </div>
+                                                        <div className="msg">
+                                                            Your email ID <br /> <span id="email2">{formData.email}</span> <br />
+                                                            <span id="submitSuccess2"> has been added successfully</span>
+                                                        </div>
+                                                        <small className="text">
+                                                            We will notify you for our Best Deals and offers.
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
 
@@ -238,9 +392,9 @@ const Footer = () => {
                     </div> */}
 
                     <div className="discription__block">
-                        <p>Disclaimer- OnlineFlightReservation is an independent travel portal. Its parent company is d Online Flight Reservation The information that's displayed on this website, www.TourTravelHub.com, is for general
+                        <p>Disclaimer- OnlineFlightReservation is an independent travel portal. Its parent company is Online Flight Reservation The information that's displayed on this website, www.onlineflightreservation.com, is for general
                             purposes. All the necessary steps have been taken to ensure that the information displayed in
-                            the website is accurate and up- to-date. However, under no circumstance, We do not provide any
+                            the website is accurate and up-to-date. However, under no circumstance, We do not provide any
                             warranty or representation, whether implied or expressed, when it comes to the accuracy,
                             completeness or reliability of the information displayed on the website. If you need to have any
                             queries answered, you can write to us at <a

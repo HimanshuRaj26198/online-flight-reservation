@@ -20,8 +20,6 @@ export default function ClientLayout({ children }) {
     const [dropdownOpens, setDropdownOpens] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
 
-
-
     const showSignUp = () => {
         setIsSignUp(true);
     };
@@ -33,8 +31,6 @@ export default function ClientLayout({ children }) {
     const handleLoginSuccess = () => {
         setIsLoggedIn(true); // Update state to hide login page
     };
-    // console.log(isSignUp,"Heeeee ek aise hi h");
-
 
     useEffect(() => {
         // Retrieve the user authentication data from sessionStorage
@@ -51,6 +47,7 @@ export default function ClientLayout({ children }) {
         }
     }, [])
 
+    
 
     // Menu items array
     const menuItems = [

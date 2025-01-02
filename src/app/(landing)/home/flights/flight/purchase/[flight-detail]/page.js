@@ -4258,7 +4258,7 @@ const PurchasePage = () => {
                                                                 <h4>A Comprehensive Overview</h4>
                                                                 <p>
                                                                     Please note that this service is provided on
-                                                                    TourTravelHub by Blue Ribbon Bags.
+                                                                    OnlineFlightReservation by Blue Ribbon Bags.
                                                                 </p>
                                                                 <ul className="brb-list">
                                                                     <li>
@@ -4820,7 +4820,7 @@ const PurchasePage = () => {
                                                         {!mobileVisible && (
                                                             <p className="hidden-xs hidden-sm">
                                                                 By clicking, <span className="bkdyntxt">Book Now</span>
-                                                                I agree that I have read and accepted TourTravelHub
+                                                                I agree that I have read and accepted OnlineFlightReservation
                                                                 <a href="/assets/terms-conditions" target="_blank">
                                                                     Terms &amp; Conditions
                                                                 </a>
@@ -4835,7 +4835,7 @@ const PurchasePage = () => {
                                                         {mobileVisible && (
                                                             <p className="visible-xs visible-sm">
                                                                 By clicking, <span className="bkdyntxt">Book Now</span>
-                                                                I agree that I have read and accepted TourTravelHub
+                                                                I agree that I have read and accepted OnlineFlightReservation
                                                                 <a
                                                                     onclick="Filter.getmobile_popup('tnc')"
                                                                     className="text_link"
