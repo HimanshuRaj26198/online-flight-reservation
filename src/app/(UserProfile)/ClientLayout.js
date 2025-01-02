@@ -61,11 +61,11 @@ export default function ClientLayout({ children }) {
 
     // Menu items array
     const menuItems = [
-        { id: "mytrip", label: "My Booking", href: "/mybooking/akjsdjkn", className: "mytrip" },
-        { id: "myinformation", label: "My Information", href: "/myinformation/slkdjlik", className: "myinformation" },
-        { id: "offers", label: "Latest Offers", href: "/latestoffer/slkdjlika", className: "reward offers" },
-        { id: "settings", label: "Settings", href: "/settings/slkdjliak", className: "setting settings" },
-        { id: "writeus", label: "Write To Us", href: "/writetous/slkdajlik", className: "deal writeus" },
+        { id: "mytrip", label: "My Booking", href: `mybooking/${currentUser.uid}`, className: "mytrip" },
+        { id: "myinformation", label: "My Information", href: `myinformation/${currentUser.uid}`, className: "myinformation" },
+        { id: "offers", label: "Latest Offers", href: `latestoffer/${currentUser.uid}`, className: "reward offers" },
+        { id: "settings", label: "Settings", href: `settings/${currentUser.uid}`, className: "setting settings" },
+        { id: "writeus", label: "Write To Us", href: `writetous/${currentUser.uid}`, className: "deal writeus" },
         { id: "signout", label: "Sign Out", href: "#", className: "signout" },
     ];
 
@@ -75,7 +75,7 @@ export default function ClientLayout({ children }) {
             handleSignOut();
         } else {
             setActiveTab(id); // Update active tab
-            router.push(href); // Navigate to the corresponding page
+            router.push(`/${href}`); // Navigate to the corresponding page
         }
     };
 
@@ -86,7 +86,7 @@ export default function ClientLayout({ children }) {
                 sessionStorage.removeItem("user");
                 setIsLoggedIn(false);
                 setUsername('');
-                // Show success toast message
+                localStorage.removeItem("current-user");
                 toast.success("You have successfully signed out.");
             })
             .catch((error) => {
@@ -136,7 +136,7 @@ export default function ClientLayout({ children }) {
                                                 <span className="fa fa-angle-down support-icon" />
                                             </a>
                                             <ul
-                                                className={`loginMenu ${dropdownOpens ? 'show' : ''}`} // Toggle visibility based on state
+                                                className={`loginMenu ${dropdownOpens ? 'show' : ''}`} style={{ display: dropdownOpens ? 'block' : 'none' }} // Toggle visibility based on state
                                             >
                                                 <li>
                                                     <a
