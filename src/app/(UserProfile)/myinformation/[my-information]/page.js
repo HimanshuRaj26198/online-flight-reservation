@@ -21,8 +21,6 @@ const MyInformation = () => {
     const [currentUser, setCurrentUser] = useState(null);
 
 
-
-
     const [personalInfoData, setPersonalInfoData] = useState({
         firstname: "",
         middlename: "",
@@ -73,8 +71,6 @@ const MyInformation = () => {
         }
 
     }, [currentUser]);
-
-
 
 
     const handleOpenModal = (traveller) => {
@@ -297,7 +293,7 @@ const MyInformation = () => {
             if (userDoc.exists()) {
                 // Extract the personalInfo field from the document
                 const data = userDoc.data();
-                const billingInfo = data.billingInfoInfo;
+                const billingInfo = data.billingInfo;
 
                 if (billingInfo) {
                     console.log("Fetched Personal Information:", billingInfo);

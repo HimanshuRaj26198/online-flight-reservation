@@ -20,18 +20,7 @@ export default function ClientLayout({ children }) {
     const [dropdownOpens, setDropdownOpens] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const user = JSON.parse(localStorage.getItem("current-user"));
-            if (user) {
-                setCurrentUser(user);
-                setIsLoggedIn(true);
-            } else {
-                setIsLoggedIn(false);
-            }
-        }
 
-    }, [])
 
     const showSignUp = () => {
         setIsSignUp(true);
@@ -53,7 +42,11 @@ export default function ClientLayout({ children }) {
             const currentUser = localStorage.getItem('current-user');
             if (currentUser) {
                 const user = JSON.parse(currentUser);
+                setCurrentUser(user);
+                setIsLoggedIn(true);
                 setUsername(user.displayName); // Set the username once on mount
+            }else{
+                setIsLoggedIn(false);
             }
         }
     }, [])
@@ -61,11 +54,11 @@ export default function ClientLayout({ children }) {
 
     // Menu items array
     const menuItems = [
-        { id: "mytrip", label: "My Booking", href: `mybooking/${currentUser.uid}`, className: "mytrip" },
-        { id: "myinformation", label: "My Information", href: `myinformation/${currentUser.uid}`, className: "myinformation" },
-        { id: "offers", label: "Latest Offers", href: `latestoffer/${currentUser.uid}`, className: "reward offers" },
-        { id: "settings", label: "Settings", href: `settings/${currentUser.uid}`, className: "setting settings" },
-        { id: "writeus", label: "Write To Us", href: `writetous/${currentUser.uid}`, className: "deal writeus" },
+        { id: "mytrip", label: "My Booking", href: "/mybooking/akjsdjkn", className: "mytrip" },
+        { id: "myinformation", label: "My Information", href: "/myinformation/slkdjlik", className: "myinformation" },
+        { id: "offers", label: "Latest Offers", href: "/latestoffer/slkdjlika", className: "reward offers" },
+        { id: "settings", label: "Settings", href: "/settings/slkdjliak", className: "setting settings" },
+        { id: "writeus", label: "Write To Us", href: "/writetous/slkdajlik", className: "deal writeus" },
         { id: "signout", label: "Sign Out", href: "#", className: "signout" },
     ];
 
@@ -75,7 +68,7 @@ export default function ClientLayout({ children }) {
             handleSignOut();
         } else {
             setActiveTab(id); // Update active tab
-            router.push(`/${href}`); // Navigate to the corresponding page
+            router.push(href); // Navigate to the corresponding page
         }
     };
 
