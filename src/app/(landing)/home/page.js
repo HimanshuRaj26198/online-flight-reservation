@@ -74,7 +74,6 @@ const HomePage = () => {
     };
 
     const [isOpen, setIsOpen] = useState(false);
-
     const openPopup = () => setIsOpen(true);
     const closePopup = () => setIsOpen(false);
 

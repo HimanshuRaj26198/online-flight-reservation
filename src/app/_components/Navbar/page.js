@@ -53,13 +53,12 @@ const Navbar = () => {
     };
 
     useEffect(() => {
-        // Retrieve the user authentication data from sessionStorage
         if (typeof window !== "undefined") {
             const currentUser = localStorage.getItem('current-user');
             if (currentUser) {
                 const user = JSON.parse(currentUser);
                 setCurrentUser(user);
-                setUsername(user.displayName); // Set the username once on mount
+                setUsername(user.displayName);
             }
         }
     }, [])
@@ -84,8 +83,30 @@ const Navbar = () => {
     }
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(setUser);
-        return () => unsubscribe();
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+              // User is signed in, update the state and local storage
+              const userData = {
+                uid: user.uid,
+                displayName: user.displayName || "User",
+                email: user.email,
+              };
+              setUser(userData);
+              setCurrentUser(userData);
+              setUsername(user.displayName || "User");
+              setIsLoggedIn(true);
+              localStorage.setItem("current-user", JSON.stringify(userData));
+            } else {
+              // User is signed out
+              setUser(null);
+              setCurrentUser(null);
+              setUsername("");
+              setIsLoggedIn(false);
+              localStorage.removeItem("current-user");
+            }
+          });
+      
+          return () => unsubscribe();
     }, []);
 
     useEffect(() => {

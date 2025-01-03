@@ -15,10 +15,9 @@ export default function ClientLayout({ children }) {
     const [activeTab, setActiveTab] = useState("mytrip");
     const [currentUser, setCurrentUser] = useState(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [loginPopupVisible, setLoginPopupVisible] = useState(false);
-    const [signUpVisible, setSignUpVisible] = useState(false);
     const [dropdownOpens, setDropdownOpens] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
+    const [user, setUser] = useState(null);
 
     const showSignUp = () => {
         setIsSignUp(true);
@@ -41,13 +40,40 @@ export default function ClientLayout({ children }) {
                 setCurrentUser(user);
                 setIsLoggedIn(true);
                 setUsername(user.displayName); // Set the username once on mount
-            }else{
+            } else {
                 setIsLoggedIn(false);
             }
         }
     }, [])
 
-    
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, update the state and local storage
+                const userData = {
+                    uid: user.uid,
+                    displayName: user.displayName || "User",
+                    email: user.email,
+                };
+                setUser(userData);
+                setCurrentUser(userData);
+                setUsername(user.displayName || "User");
+                setIsLoggedIn(true);
+                localStorage.setItem("current-user", JSON.stringify(userData));
+            } else {
+                // User is signed out
+                setUser(null);
+                setCurrentUser(null);
+                setUsername("");
+                setIsLoggedIn(false);
+                localStorage.removeItem("current-user");
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+
 
     // Menu items array
     const menuItems = [
@@ -202,10 +228,10 @@ export default function ClientLayout({ children }) {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12">
-                            <a className="logo" href="https://www.onlineflightreservation.com/">
+                            <a className="logo" href="/">
                                 <img
                                     src="/assets/logo.png"
-                                    alt="logo"
+                                    alt="https://www.onlineflightreservation.com/"
                                     style={{ width: 160, marginTop: 10 }}
                                 />
                             </a>
