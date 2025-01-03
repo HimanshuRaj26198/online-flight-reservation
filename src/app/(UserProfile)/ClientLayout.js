@@ -232,7 +232,7 @@ export default function ClientLayout({ children }) {
                                 <img
                                     src="/assets/logo.png"
                                     alt="https://www.onlineflightreservation.com/"
-                                    style={{ width: 160, marginTop: 10 }}
+                                    style={{ width: 200, marginTop: 10 }}
                                 />
                             </a>
                             <div className="topmenuBox">

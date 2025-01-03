@@ -85,28 +85,28 @@ const Navbar = () => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
-              // User is signed in, update the state and local storage
-              const userData = {
-                uid: user.uid,
-                displayName: user.displayName || "User",
-                email: user.email,
-              };
-              setUser(userData);
-              setCurrentUser(userData);
-              setUsername(user.displayName || "User");
-              setIsLoggedIn(true);
-              localStorage.setItem("current-user", JSON.stringify(userData));
+                // User is signed in, update the state and local storage
+                const userData = {
+                    uid: user.uid,
+                    displayName: user.displayName || "User",
+                    email: user.email,
+                };
+                setUser(userData);
+                setCurrentUser(userData);
+                setUsername(user.displayName || "User");
+                setIsLoggedIn(true);
+                localStorage.setItem("current-user", JSON.stringify(userData));
             } else {
-              // User is signed out
-              setUser(null);
-              setCurrentUser(null);
-              setUsername("");
-              setIsLoggedIn(false);
-              localStorage.removeItem("current-user");
+                // User is signed out
+                setUser(null);
+                setCurrentUser(null);
+                setUsername("");
+                setIsLoggedIn(false);
+                localStorage.removeItem("current-user");
             }
-          });
-      
-          return () => unsubscribe();
+        });
+
+        return () => unsubscribe();
     }, []);
 
     useEffect(() => {
@@ -286,7 +286,7 @@ const Navbar = () => {
                         </button>
 
                         <a className="navbar-brand" href="/"><img src="/assets/logo.png"
-                            alt="https://www.onlineflightreservation.com/" /></a>
+                            alt="https://www.onlineflightreservation.com/" style={{ width: 200, marginTop: 3 }} /></a>
                     </div>
 
                     <div id="navbar" className={`navbar-collapse main_navigation ${mobMenuOpen ? 'mainMenuopen' : 'mainMenuClosed'}`}>
