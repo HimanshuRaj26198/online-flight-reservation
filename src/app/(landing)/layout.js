@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <link href="/assets/country-flags/countryflags3eba.css?v=69.2.7006" rel="stylesheet" />
         <link href="/assets/stylesheet/css/style.css?v=69.2.7006" rel="stylesheet" />
 
-        
+
 
         <link href="https://cmsrepository.com/static/flights/flight/country-flags/countryflags.css?v=69.2.7006" rel="stylesheet" />
         {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" /> */}
@@ -42,11 +42,11 @@ export default function RootLayout({ children }) {
         {/* <script src="/assets/scripts/latest-jquery-ui.js" ></script> */}
       </head>
       <body className={"results-page"}>
-         <>
-      <Navbar />
-        <ToastContainer />
-        {children}
-        <Footer /></>
+        <>
+          <Navbar />
+          <ToastContainer />
+          {children}
+          <Footer /></>
       </body>
     </html>
   );

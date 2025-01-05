@@ -93,7 +93,7 @@ const Footer = () => {
                                             </li>
                                             <li><a href="/terms-conditions" title="Terms and Conditions">Terms and
                                                 Conditions</a></li>
-                                            <li><a href="/blogs" title="Travel Blog">Travel Blog</a></li>
+                                            <li><a href="/blogs" title="Travel Blog">Travel Blogs</a></li>
                                             {/* <li><a href="/assets/site-map.html" title="Sitemap">Sitemap</a></li> */}
                                         </ul>
                                     </div>

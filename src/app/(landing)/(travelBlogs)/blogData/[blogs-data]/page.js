@@ -1,4 +1,14 @@
+"use client";
+import blogThumbs from "@/assets/scraped_thumbs.json";
+import { useRouter } from 'next/navigation';
+
 const blogs = () => {
+    const router = useRouter();
+
+    const handleReadMoreClick = (e) => {
+        e.preventDefault();
+        router.push("/blogData/djsdsd");
+    }
     return (
         <>
             <section className="section bg-light">
@@ -232,102 +242,31 @@ const blogs = () => {
                             </div>
                         </div>
                         <div className="col-lg-4 mt-4 mt-lg-0">
-                            <div className="shadow-md" style={{ padding: 20 }}>
-                                <h3 className="text-6">Recent Blog</h3>
-                                <div className="sidebar-contant pt-3">
-                                    <div className="thumb-box">
-                                        <figure>
-                                            <figcaption>
-                                                <div className="thumb-detail-info">
-                                                    <a
-                                                        href="/blogs/how-do-i-talk-to-a-live-person-at-aa.aspx"
-                                                        title="how do i talk to a live person at aa"
-                                                    >
-                                                        How Do I Talk to a Real Person on American Airlines?
-                                                    </a>
-                                                    <div className="post-info">15 Jun 2023</div>
-                                                </div>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div className="thumb-box">
-                                        <figure>
-                                            <figcaption>
-                                                <div className="thumb-detail-info">
-                                                    <a
-                                                        href="/blogs/how-do-i-talk-to-a-real-person-on-f9.aspx"
-                                                        title="how do i talk to a real person on f9"
-                                                    >
-                                                        How Do I Talk to a Real Person on Frontier Airlines?
-                                                    </a>
-                                                    <div className="post-info">15 Jun 2023</div>
-                                                </div>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div className="thumb-box">
-                                        <figure>
-                                            <figcaption>
-                                                <div className="thumb-detail-info">
-                                                    <a
-                                                        href="/blogs/how-do-i-talk-to-a-real-person-on-dl.aspx"
-                                                        title="how do i talk to a real person on dl"
-                                                    >
-                                                        How Do I Talk to a Real Person on Delta Airlines?
-                                                    </a>
-                                                    <div className="post-info">15 Jun 2023</div>
-                                                </div>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div className="thumb-box">
-                                        <figure>
-                                            <figcaption>
-                                                <div className="thumb-detail-info">
-                                                    <a
-                                                        href="/blogs/qatar-airways-manage-booking.aspx"
-                                                        title="qatar airways manage booking"
-                                                    >
-                                                        How to Manage Qatar Airways Booking?
-                                                    </a>
-                                                    <div className="post-info">16 Jun 2023</div>
-                                                </div>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div className="thumb-box">
-                                        <figure>
-                                            <figcaption>
-                                                <div className="thumb-detail-info">
-                                                    <a
-                                                        href="/blogs/how-do-i-speak-to-a-person-at-turkish-airlines.aspx"
-                                                        title="how do i speak to a person at turkish airlines"
-                                                    >
-                                                        How Do I Speak to a Live Person at Turkish Airlines?
-                                                    </a>
-                                                    <div className="post-info">21 Jun 2023</div>
-                                                </div>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div className="thumb-box">
-                                        <figure>
-                                            <figcaption>
-                                                <div className="thumb-detail-info">
-                                                    <a
-                                                        href="/blogs/how-do-i-talk-to-an-air-canada-agent.aspx"
-                                                        title="how do i talk to an air canada agent"
-                                                    >
-                                                        How Do I Talk to An Air Canada Agent?
-                                                    </a>
-                                                    <div className="post-info">06 Jul 2023</div>
-                                                </div>
-                                            </figcaption>
-                                        </figure>
+                                    <div className="shadow-md" style={{ padding: 20 }}>
+                                        <h1 className="text-6">Recent Blog</h1>
+                                        <div className="sidebar-contant pt-3">
+                                            <div className="thumb-box">
+                                                <figure>
+                                                    <figcaption>
+                                                        {blogThumbs.map((thumbs, index) => (
+                                                            <div className="thumb-detail-info">
+                                                                <a
+                                                                    href={thumbs.url}
+                                                                    title="how do i talk to a live person at aa"
+                                                                    onClick={(e) => handleReadMoreClick(e)}
+                                                                >
+                                                                    {thumbs.title}
+                                                                </a>
+                                                                <div className="post-info">{thumbs.post_date}</div>
+                                                            </div>
+                                                        ))}
+                        
+                                                    </figcaption>
+                                                </figure>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>

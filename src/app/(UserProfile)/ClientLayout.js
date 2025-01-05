@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import UserSignInComponent from "@/app/_components/userLoginDashboard/page";
 import UserSignUpComponent from "@/app/_components/userSignUpDashboard/page";
+import Loadings from "../Loadings";
 
 export default function ClientLayout({ children }) {
 
@@ -18,6 +19,7 @@ export default function ClientLayout({ children }) {
     const [dropdownOpens, setDropdownOpens] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const showSignUp = () => {
         setIsSignUp(true);
@@ -58,7 +60,10 @@ export default function ClientLayout({ children }) {
                 setUser(userData);
                 setCurrentUser(userData);
                 setUsername(user.displayName || "User");
-                setIsLoggedIn(true);
+                setTimeout(() => {
+                    setLoading(false);
+                    setIsLoggedIn(true);
+                }, 1000);
                 localStorage.setItem("current-user", JSON.stringify(userData));
             } else {
                 // User is signed out
@@ -72,8 +77,6 @@ export default function ClientLayout({ children }) {
 
         return () => unsubscribe();
     }, []);
-
-
 
     // Menu items array
     const menuItems = [
@@ -118,7 +121,6 @@ export default function ClientLayout({ children }) {
 
     const toggleDropdowns = () => {
         console.log("hiiiiii");
-
         setDropdownOpens(!dropdownOpens);
     };
 
@@ -254,7 +256,9 @@ export default function ClientLayout({ children }) {
             </header>
 
             {/* Container */}
-            {isLoggedIn ? (
+            {loading ? (
+                <Loadings />
+            ) : isLoggedIn ? (
                 <div className="container">
                     <main role="main" className="pb-3">
                         <input type="hidden" id="pageid" defaultValue="myinfo" />
