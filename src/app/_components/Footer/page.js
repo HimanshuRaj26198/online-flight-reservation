@@ -202,18 +202,7 @@ const Footer = () => {
                     </div>
                     <div className="clearfix"></div>
 
-                    <div className="visible-xs">
-                        <div className="bottom-call-bar" style={{ bottom: "0px" }}>
-                            <div className="close_call_banner hand" style={{ float: "right", color: "#fff", padding: "0 5px" }}>X</div>
-                            <a id="a_contactNo" className="tele" href="tel:+1(888) 267-5955">
-                                <span className="call_btndiv"><img src="/assets/images/uc/newcall202c.gif?123" alt="call"
-                                    className="footer_call_icon" />
-                                    <span className="call-text">Call &amp; Get Unpublished Flight Deals!</span>
-                                    <span id="div_contactNo" className="phone">+1(888) 267-5955</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
+                    
 
 
                     {/* <div className="secure__logo">
