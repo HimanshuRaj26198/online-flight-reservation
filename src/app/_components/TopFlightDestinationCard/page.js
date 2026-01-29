@@ -13,7 +13,7 @@ const TopFlightDestinationCard = ({ destination }) => {
         body.append("client_id", "0fTkgg7u7lrqduKUEFx7v5Gnhey4ZG50");
         body.append("client_secret", "1kbdDxkhO4kMMH9p");
         try {
-            const data = await fetch("https://api.amadeus.com/v1/security/oauth2/token",
+            const data = await fetch("https://test.api.amadeus.com/v1/security/oauth2/token",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },

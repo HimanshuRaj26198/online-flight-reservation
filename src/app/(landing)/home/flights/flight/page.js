@@ -452,7 +452,7 @@ const FlightResultCompnent = () => {
 
 
             try {
-                const response = await fetch("https://api.amadeus.com/v2/shopping/flight-offers", {
+                const response = await fetch("https://test.api.amadeus.com/v2/shopping/flight-offers", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -565,7 +565,7 @@ const FlightResultCompnent = () => {
             // console.log(longitude, "HEY Longitude");
 
             try {
-                let response = await fetch(`https://api.amadeus.com/v1/reference-data/locations/airports?latitude=${latitude}&longitude=${longitude}&radius=200&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=relevance`, {
+                let response = await fetch(`https://test.api.amadeus.com/v1/reference-data/locations/airports?latitude=${latitude}&longitude=${longitude}&radius=200&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=relevance`, {
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${searchParam.get("tk")}`
