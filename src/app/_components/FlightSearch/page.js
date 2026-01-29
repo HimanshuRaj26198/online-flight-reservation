@@ -274,8 +274,8 @@ const FlightSearch = ({ airline, selectedDes }) => {
     const fetchToken = async () => {
         let body = new URLSearchParams();
         body.append("grant_type", "client_credentials");
-        body.append("client_id", "0fTkgg7u7lrqduKUEFx7v5Gnhey4ZG50");
-        body.append("client_secret", "1kbdDxkhO4kMMH9p");
+        body.append("client_id", "ONh9HEGxuggIh9JmuNdRja741qvCekWU");
+        body.append("client_secret", "iBBuXBUGhCr39mEj");
 
         // New Id
         // body.append("client_id", "ZKUO3uFAPcKvHLMchYTnuRc5IA9OSrgC");
